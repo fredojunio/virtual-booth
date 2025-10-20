@@ -1,64 +1,110 @@
-🌐 Virtual Booth Experience
-Inspired by the Istana Heritage Gallery Tour
+# 🌐 Virtual Booth Experience  
+*Inspired by the Istana Heritage Gallery Tour*
 
-A post-event digital showcase that lets attendees revisit sponsor booths anytime after the live event ends.
-Built for conferences, exhibitions, and award ceremonies seeking lasting engagement.
+> A **seamless online experience** for event attendees to revisit sponsor booths—even after the event has concluded.  
+> Built for the **World Toilet Day Loo Awards 2025**, this platform ensures lasting engagement between attendees and sponsors.
 
-🎯 Vision
-Provide a seamless online experience modeled after the Istana Heritage Gallery Tour
-Enable attendees to explore sponsor booths long after the event concludes
-Offer sponsors a persistent digital presence with interactive content (videos, links, info cards)
-Support tiered engagement (Bronze, Silver, Gold) with scalable interactivity
-✨ Key Features
-Immersive Landing Page – Themed 3D backdrop aligned with your event identity
-Four Core Navigation Paths:
-📌 About the Event – Learn the purpose and significance of the gathering
-🏛️ About the Organizing Body – Discover the mission and history of the host organization
-💝 Support the Cause – Direct link to donation platform (e.g., Sanigives)
-🤝 Become a Sponsor – Information for future participation
-Interactive Sponsor Booths – Each represented by a clickable icon (★ or logo)
-Dynamic Booth Pages – Display real booth photos with overlay hotspots for:
-Company videos
-Mission statements
-Contact info
-Additional content (for higher-tier sponsors)
-Fully Responsive – Works on all devices
-🛠️ Tech Stack
-React – Declarative UI components
-Tailwind CSS – Rapid, responsive styling
-Zero heavy dependencies – Lightweight and fast-loading
-Image-based hotspots – Custom absolute-positioned interactive zones
-📂 Customization Ready
-Swap the 3D backdrop to match your event theme
-Replace placeholder stars with real sponsor logos
-Upload actual booth photos from event day
-Configure sponsor tiers to unlock more hotspots (Gold > Silver > Bronze)
-Update links (donation, sponsor inquiry, etc.) as needed
-🚀 Quick Start
-bash
+---
 
+## 🎯 Project Vision
 
-1
-2
-3
-4
-git clone https://github.com/your-username/virtual-booth.git
+- Modeled after the **[Istana Heritage Gallery Tour](https://www.istana.gov.sg/visit-the-istana/istana-heritage-gallery)**  
+- Enables attendees to **explore sponsor booths post-event**  
+- Helps sponsors **extend their reach** with on-demand access to company info, videos, and mission  
+- Supports **tiered sponsor experiences** (Bronze, Silver, Gold) with scalable interactivity
+
+---
+
+## 🖼️ Website Structure
+
+### 🏠 **Landing Page**
+- **3D-rendered toilet backdrop** aligned with the World Toilet Day theme  
+- Four main interactive buttons:
+  1. **What is the Loo Awards?**  
+  2. **More about Restroom Association Singapore**  
+  3. **Donate towards the cause**  
+  4. **Want to join as a sponsor?**  
+- **Sponsor stars/icons** overlaid on the background — each representing a virtual booth
+
+> 💡 *“Each star represents a virtual booth led by an individual sponsor.”*
+
+---
+
+### 🔘 **Interactive Buttons**
+
+| Button | Purpose | Destination |
+|-------|--------|-------------|
+| **What is the Loo Awards?** | Explain the annual event & World Toilet Day | Info page about the awards’ purpose and history |
+| **More about Restroom Association Singapore** | Showcase the organizing body | Page detailing RAS’s mission, background, and impact |
+| **Donate towards the cause** | Support frontline cleaners | Redirect to **[Sanigives](https://sanigives.org)** |
+| **Want to join as a sponsor?** | Recruit future sponsors | Page outlining sponsorship benefits for 2026 |
+
+---
+
+### 🌟 **Sponsor Virtual Booths**
+
+- Clicking a sponsor star opens their **dedicated booth page**
+- **Background**: Real photo of the sponsor’s physical booth (taken on event day)
+- **Overlay hotspots** (clickable elements) appear on the booth image:
+  - Company video  
+  - Mission statement  
+  - Contact or “Learn More” links  
+- **All tiers (Bronze/Silver/Gold)** get **at least one hotspot**
+- **Higher-tier sponsors** (e.g., Gold) can have **additional clickpoints** for richer content
+
+> Example:  
+> *“If sponsor is on higher tier, more clickpoints can be added (e.g., this text box could be a click point).”*
+
+---
+
+## 🛠️ Tech Implementation
+
+- **Framework**: React.js  
+- **Styling**: Tailwind CSS (fully responsive)  
+- **Interactivity**: Image-based hotspots using absolute positioning  
+- **No external libraries** — lightweight and fast
+
+---
+
+## 📂 Customization Guide
+
+1. **Replace 3D backdrop** with final render  
+2. **Upload real sponsor booth photos**  
+3. **Map sponsor logos or stars** to correct positions  
+4. **Configure hotspot coordinates** per booth (adjust % values)  
+5. **Update links** (Sanigives, sponsor inquiry form, etc.)
+
+---
+
+## 🚀 Getting Started
+
+```bash
+git clone <repo-url>
 cd virtual-booth
 npm install
 npm start
-Visit http://localhost:3000 to explore the demo.
+```
 
-🌍 Deployment
-Deploy in one click with:
+Open [http://localhost:3000](http://localhost:3000) to view the experience.
 
-Vercel
-Netlify
-GitHub Pages
-📄 License
-MIT – Free to use for non-profit, educational, or community-driven events.
+---
 
-“Great events don’t end when the doors close—they live on digitally.” 
+## 🌍 Deployment
 
-Perfect for sanitation advocates, cultural festivals, trade shows, or award galas looking to extend their impact beyond a single day.
+Deploy instantly via:
+- **Vercel**
+- **Netlify**
+- **GitHub Pages**
 
-Let me know if you'd like a version that completely removes all sanitation references and positions this as a universal virtual booth template!
+---
+
+## 📄 License
+
+MIT License — free to use for non-profit and community-driven initiatives.
+
+---
+
+> **“Sanitation is dignity. Clean restrooms are a right, not a privilege.”**  
+> — Restroom Association Singapore
+
+✨ Built for **World Toilet Day 2025** | Inspired by the **Istana Heritage Gallery Tour** ✨
