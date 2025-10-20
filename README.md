@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+🌐 Virtual Booth Experience
+Inspired by the Istana Heritage Gallery Tour
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A post-event digital showcase that lets attendees revisit sponsor booths anytime after the live event ends.
+Built for conferences, exhibitions, and award ceremonies seeking lasting engagement.
 
-## Available Scripts
+🎯 Vision
+Provide a seamless online experience modeled after the Istana Heritage Gallery Tour
+Enable attendees to explore sponsor booths long after the event concludes
+Offer sponsors a persistent digital presence with interactive content (videos, links, info cards)
+Support tiered engagement (Bronze, Silver, Gold) with scalable interactivity
+✨ Key Features
+Immersive Landing Page – Themed 3D backdrop aligned with your event identity
+Four Core Navigation Paths:
+📌 About the Event – Learn the purpose and significance of the gathering
+🏛️ About the Organizing Body – Discover the mission and history of the host organization
+💝 Support the Cause – Direct link to donation platform (e.g., Sanigives)
+🤝 Become a Sponsor – Information for future participation
+Interactive Sponsor Booths – Each represented by a clickable icon (★ or logo)
+Dynamic Booth Pages – Display real booth photos with overlay hotspots for:
+Company videos
+Mission statements
+Contact info
+Additional content (for higher-tier sponsors)
+Fully Responsive – Works on all devices
+🛠️ Tech Stack
+React – Declarative UI components
+Tailwind CSS – Rapid, responsive styling
+Zero heavy dependencies – Lightweight and fast-loading
+Image-based hotspots – Custom absolute-positioned interactive zones
+📂 Customization Ready
+Swap the 3D backdrop to match your event theme
+Replace placeholder stars with real sponsor logos
+Upload actual booth photos from event day
+Configure sponsor tiers to unlock more hotspots (Gold > Silver > Bronze)
+Update links (donation, sponsor inquiry, etc.) as needed
+🚀 Quick Start
+bash
 
-In the project directory, you can run:
 
-### `npm start`
+1
+2
+3
+4
+git clone https://github.com/your-username/virtual-booth.git
+cd virtual-booth
+npm install
+npm start
+Visit http://localhost:3000 to explore the demo.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+🌍 Deployment
+Deploy in one click with:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Vercel
+Netlify
+GitHub Pages
+📄 License
+MIT – Free to use for non-profit, educational, or community-driven events.
 
-### `npm test`
+“Great events don’t end when the doors close—they live on digitally.” 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Perfect for sanitation advocates, cultural festivals, trade shows, or award galas looking to extend their impact beyond a single day.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Let me know if you'd like a version that completely removes all sanitation references and positions this as a universal virtual booth template!
