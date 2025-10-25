@@ -1,70 +1,110 @@
-# Getting Started with Create React App
+# 🌐 Virtual Booth Experience  
+*Inspired by the Istana Heritage Gallery Tour*
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> A **seamless online experience** for event attendees to revisit sponsor booths—even after the event has concluded.  
+> Built for the **World Toilet Day Loo Awards 2025**, this platform ensures lasting engagement between attendees and sponsors.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🎯 Project Vision
 
-### `npm start`
+- Modeled after the **[Istana Heritage Gallery Tour](https://www.istana.gov.sg/visit-the-istana/istana-heritage-gallery)**  
+- Enables attendees to **explore sponsor booths post-event**  
+- Helps sponsors **extend their reach** with on-demand access to company info, videos, and mission  
+- Supports **tiered sponsor experiences** (Bronze, Silver, Gold) with scalable interactivity
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🖼️ Website Structure
 
-### `npm test`
+### 🏠 **Landing Page**
+- **3D-rendered toilet backdrop** aligned with the World Toilet Day theme  
+- Four main interactive buttons:
+  1. **What is the Loo Awards?**  
+  2. **More about Restroom Association Singapore**  
+  3. **Donate towards the cause**  
+  4. **Want to join as a sponsor?**  
+- **Sponsor stars/icons** overlaid on the background — each representing a virtual booth
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> 💡 *“Each star represents a virtual booth led by an individual sponsor.”*
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🔘 **Interactive Buttons**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+| Button | Purpose | Destination |
+|-------|--------|-------------|
+| **What is the Loo Awards?** | Explain the annual event & World Toilet Day | Info page about the awards’ purpose and history |
+| **More about Restroom Association Singapore** | Showcase the organizing body | Page detailing RAS’s mission, background, and impact |
+| **Donate towards the cause** | Support frontline cleaners | Redirect to **[Sanigives](https://sanigives.org)** |
+| **Want to join as a sponsor?** | Recruit future sponsors | Page outlining sponsorship benefits for 2026 |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+### 🌟 **Sponsor Virtual Booths**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Clicking a sponsor star opens their **dedicated booth page**
+- **Background**: Real photo of the sponsor’s physical booth (taken on event day)
+- **Overlay hotspots** (clickable elements) appear on the booth image:
+  - Company video  
+  - Mission statement  
+  - Contact or “Learn More” links  
+- **All tiers (Bronze/Silver/Gold)** get **at least one hotspot**
+- **Higher-tier sponsors** (e.g., Gold) can have **additional clickpoints** for richer content
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+> Example:  
+> *“If sponsor is on higher tier, more clickpoints can be added (e.g., this text box could be a click point).”*
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🛠️ Tech Implementation
 
-## Learn More
+- **Framework**: React.js  
+- **Styling**: Tailwind CSS (fully responsive)  
+- **Interactivity**: Image-based hotspots using absolute positioning  
+- **No external libraries** — lightweight and fast
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📂 Customization Guide
 
-### Code Splitting
+1. **Replace 3D backdrop** with final render  
+2. **Upload real sponsor booth photos**  
+3. **Map sponsor logos or stars** to correct positions  
+4. **Configure hotspot coordinates** per booth (adjust % values)  
+5. **Update links** (Sanigives, sponsor inquiry form, etc.)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## 🚀 Getting Started
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+git clone <repo-url>
+cd virtual-booth
+npm install
+npm start
+```
 
-### Making a Progressive Web App
+Open [http://localhost:3000](http://localhost:3000) to view the experience.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 🌍 Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Deploy instantly via:
+- **Vercel**
+- **Netlify**
+- **GitHub Pages**
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 📄 License
 
-### `npm run build` fails to minify
+MIT License — free to use for non-profit and community-driven initiatives.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+> **“Sanitation is dignity. Clean restrooms are a right, not a privilege.”**  
+> — Restroom Association Singapore
+
+✨ Built for **World Toilet Day 2025** | Inspired by the **Istana Heritage Gallery Tour** ✨
