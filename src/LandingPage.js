@@ -1,5 +1,6 @@
 import React from "react";
 import toiletBg from "./assets/3d-toilet-background.jpeg";
+import logoSponsor from "./assets/logo.png";
 
 const LandingPage = ({ onViewChange, onSponsorClick, sponsors }) => {
   const [containerSize, setContainerSize] = React.useState({
@@ -50,19 +51,67 @@ const LandingPage = ({ onViewChange, onSponsorClick, sponsors }) => {
 
   // Define sponsor positions in original image pixels
   const sponsorPositions = [
-    { id: "gold1", name: "EcoFlush Pte Ltd", tier: "gold", x: 420, y: 450 },
+    { id: "gold1", name: "Sponsor Gold 1", tier: "gold", x: 100, y: 700 },
+    { id: "gold1", name: "Sponsor Gold 2", tier: "gold", x: 730, y: 550 },
     {
       id: "silver1",
-      name: "PureSan Solutions",
+      name: "Sponsor Silver 1",
       tier: "silver",
-      x: 960,
+      x: 940,
+      y: 730,
+    },
+    {
+      id: "silver1",
+      name: "Sponsor Silver 2",
+      tier: "silver",
+      x: 1100,
+      y: 730,
+    },
+    {
+      id: "silver1",
+      name: "Sponsor Silver 3",
+      tier: "silver",
+      x: 1300,
       y: 580,
     },
-    { id: "bronze1", name: "CleanRest Co", tier: "bronze", x: 1480, y: 400 },
+    {
+      id: "bronze1",
+      name: "Sponsor Bronze 1",
+      tier: "bronze",
+      x: 1680,
+      y: 580,
+    },
   ];
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
+      {/* Left Sidebar Buttons (Desktop Only) */}
+      <div className="absolute left-4 gap-3 top-10 flex flex-col z-20 hidden md:flex bg-neutral-800/30 backdrop-blur-lg rounded-3xl p-5">
+        <h1 className="text-white font-medium text-4xl">
+          World Toilet Day <br /> Loo Awards 2025
+        </h1>
+        <a
+          href="http"
+          className="w-72 text-left px-4 py-3 rounded-2xl transition
+                    bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
+        >
+          What is the Loo Awards?
+        </a>
+        <a
+          href="http"
+          className="w-72 text-left px-4 py-3 rounded-2xl transition
+                    bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
+        >
+          More about Restroom Association
+        </a>
+        <a
+          href="http"
+          className="w-72 text-left px-4 py-3 rounded-2xl transition
+                    bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
+        >
+          Donate towards the cause
+        </a>
+      </div>
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center landing-container"
@@ -70,27 +119,6 @@ const LandingPage = ({ onViewChange, onSponsorClick, sponsors }) => {
           backgroundImage: `url(${toiletBg})`,
         }}
       />
-
-      {/* Header Buttons */}
-      {/* <div className="relative z-10 flex flex-wrap justify-center gap-3 p-6 max-w-5xl mx-auto">
-        {sponsors.map((sponsor) => {
-          const pos = sponsorPositions.find((p) => p.id === sponsor.id);
-          if (!pos) return null;
-          return (
-            <div
-              key={sponsor.id}
-              className="absolute transform -translate-x-1/2 -translate-y-1/2 w-14 h-14 flex items-center justify-center pointer-events-auto cursor-pointer"
-              style={{ left: pos.x, top: pos.y }}
-              onClick={() => onSponsorClick(sponsor)}
-              title={`Visit ${sponsor.name} Booth`}
-            >
-              <div className="w-full h-full bg-yellow-400 rounded-full flex items-center justify-center text-xl text-gray-800 border-2 border-yellow-600 shadow-lg">
-                ★
-              </div>
-            </div>
-          );
-        })}{" "}
-      </div> */}
 
       {/* Sponsor Hotspots */}
       <div className="absolute inset-0 pointer-events-none">
@@ -101,7 +129,7 @@ const LandingPage = ({ onViewChange, onSponsorClick, sponsors }) => {
           return (
             <div
               key={sponsor.id}
-              className="absolute transform -translate-x-1/2 -translate-y-1/2 w-14 h-14 pointer-events-auto cursor-pointer"
+              className="absolute transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 pointer-events-auto cursor-pointer group"
               style={{
                 left: `${pos.x}px`,
                 top: `${pos.y}px`,
@@ -109,8 +137,19 @@ const LandingPage = ({ onViewChange, onSponsorClick, sponsors }) => {
               onClick={() => onSponsorClick(sponsor)}
               title={`Visit ${sponsor.name} Booth`}
             >
-              <div className="w-full h-full bg-yellow-400 rounded-full flex items-center justify-center text-xl text-gray-800 border-2 border-yellow-600 shadow-lg">
-                ★
+              {/* The Sponsor Button */}
+              <div className="animate-pulse w-full h-full bg-white/80 rounded-full flex items-center justify-center text-xl text-gray-800 border-4 border-neutral-800/30 backdrop-blur-lg shadow-lg"></div>
+
+              {/* Tooltip (shows on hover) */}
+              <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                <div className="bg-neutral-800/30 backdrop-blur-xl bg-opacity-90 p-2 rounded-2xl shadow-lg min-w-max">
+                  <img
+                    src={logoSponsor}
+                    alt={sponsor.name}
+                    className="h-10 w-auto rounded"
+                  />
+                  {/* <p className="text-xs mt-1 text-gray-800">{sponsor.name}</p> */}
+                </div>
               </div>
             </div>
           );
@@ -118,76 +157,11 @@ const LandingPage = ({ onViewChange, onSponsorClick, sponsors }) => {
       </div>
 
       {/* Footer Note */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-center px-4 py-2 bg-black bg-opacity-50 rounded-full text-sm font-medium">
+      {/* <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-center px-4 py-2 bg-black bg-opacity-50 rounded-full text-sm font-medium">
         Each star represents a virtual booth led by an individual sponsor.
-      </div>
+      </div> */}
     </div>
   );
-  // Position sponsors as hotspots (adjust % as needed)
-  // const sponsorPositions = [
-  //   { id: "gold1", x: "20%", y: "40%" },
-  //   { id: "silver1", x: "50%", y: "55%" },
-  //   { id: "bronze1", x: "78%", y: "38%" },
-  // ];
-
-  // return (
-  //   <div className="relative w-full h-screen overflow-hidden">
-  //     {/* 3D Toilet Background — REPLACE with real image */}
-  //     <div
-  //       className="absolute inset-0 bg-cover bg-center"
-  //       style={{
-  //         backgroundImage: "url('" + toiletBg + "')",
-  //       }}
-  //     />
-
-  //     {/* Dark overlay for text readability */}
-  //     <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-
-  //     {/* Header Buttons */}
-  //     <div className="relative z-10 flex flex-wrap justify-center gap-3 p-6 max-w-5xl mx-auto">
-  //       {[
-  //         { label: "What is the Loo Awards?", key: "about" },
-  //         { label: "More about Restroom Association", key: "ras" },
-  //         { label: "Donate towards the cause", key: "donate" },
-  //         { label: "Want to join as a sponsor?", key: "sponsor" },
-  //       ].map((btn) => (
-  //         <button
-  //           key={btn.key}
-  //           onClick={() => onViewChange(btn.key)}
-  //           className="px-5 py-2.5 bg-blue-600 text-white font-medium rounded-full shadow-md hover:bg-blue-700 transition transform hover:scale-105"
-  //         >
-  //           {btn.label}
-  //         </button>
-  //       ))}
-  //     </div>
-
-  //     {/* Sponsor Hotspots (Stars) */}
-  //     <div className="absolute inset-0 pointer-events-none">
-  //       {sponsors.map((sponsor) => {
-  //         const pos = sponsorPositions.find((p) => p.id === sponsor.id);
-  //         if (!pos) return null;
-  //         return (
-  //           <div
-  //             key={sponsor.id}
-  //             className="absolute transform -translate-x-1/2 -translate-y-1/2 w-14 h-14 flex items-center justify-center pointer-events-auto cursor-pointer"
-  //             style={{ left: pos.x, top: pos.y }}
-  //             onClick={() => onSponsorClick(sponsor)}
-  //             title={`Visit ${sponsor.name} Booth`}
-  //           >
-  //             <div className="w-full h-full bg-yellow-400 rounded-full flex items-center justify-center text-xl text-gray-800 border-2 border-yellow-600 shadow-lg">
-  //               ★
-  //             </div>
-  //           </div>
-  //         );
-  //       })}
-  //     </div>
-
-  //     {/* Footer Note */}
-  //     <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-center px-4 py-2 bg-black bg-opacity-50 rounded-full text-sm font-medium">
-  //       Each star represents a virtual booth led by an individual sponsor.
-  //     </div>
-  //   </div>
-  // );
 };
 
 export default LandingPage;

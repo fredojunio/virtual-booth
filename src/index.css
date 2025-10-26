@@ -21,3 +21,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@keyframes zoom-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-zoom-fade-in {
+  animation: zoom-fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

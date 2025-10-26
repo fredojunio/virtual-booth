@@ -8,6 +8,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
   const [activePanel, setActivePanel] = useState(null); // 'who', 'contact', 'video', 'smartToilet'
   const [showVideoModal, setShowVideoModal] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // For mobile hamburger
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // Mock content for demo — replace with real data per sponsor
   const sponsorContent = {
@@ -51,6 +52,12 @@ const SponsorBooth = ({ sponsor, onBack }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    // Trigger animation after component mounts
+    const timer = setTimeout(() => setIsLoaded(true), 50);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="relative w-full h-screen overflow-hidden">
       {/* Full-Screen Booth Photo Background */}
@@ -62,8 +69,69 @@ const SponsorBooth = ({ sponsor, onBack }) => {
 
       {/* Overlay for readability */}
       <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+      {/* Video Modal */}
+      {showVideoModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+          <div className="bg-neutral-800/30 backdrop-blur-lg rounded-2xl p-4 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-end items-center mb-4">
+              {/* <h2 className="text-xl font-bold">Company Video</h2> */}
+              <button
+                onClick={() => setShowVideoModal(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="aspect-video">
+              <iframe
+                src={sponsorContent.videoUrl}
+                title="Company Video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full rounded-lg"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
 
-      {/* Header */}
+      {activePanel === "smartToilet" && (
+        <div className="absolute inset-0 flex items-center justify-center z-30 p-4">
+          <div className="bg-white bg-opacity-90 backdrop-blur-md p-6 rounded-xl max-w-lg w-full mx-4 text-gray-800 shadow-xl">
+            <img
+              src={sponsorContent.smartToiletInfo.imageUrl}
+              alt="Smart Toilet Diagram"
+              className="w-full h-auto rounded-lg mb-3"
+            />
+            <h3 className="font-bold text-lg mb-2">
+              {sponsorContent.smartToiletInfo.title}
+            </h3>
+            <p className="text-sm mb-3">
+              {sponsorContent.smartToiletInfo.description}
+            </p>
+            <a
+              href={sponsorContent.smartToiletInfo.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline text-sm"
+            >
+              For more info
+            </a>
+          </div>
+        </div>
+      )}
+
+      {/* Animated Content Wrapper */}
+      {/* <div
+        className={`relative h-full w-full z-10 transition-opacity ${
+          isLoaded ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <div className={isLoaded ? "animate-zoom-fade-in" : "opacity-0"}>
+        </div>
+      </div> */}
+
       <div className="relative z-10 flex justify-between items-center p-4">
         <button
           onClick={onBack}
@@ -115,72 +183,70 @@ const SponsorBooth = ({ sponsor, onBack }) => {
             </svg>
           </button>
         </div>
-      </div>
-
-      {/* Mobile Menu Drawer */}
-      {isMenuOpen && (
-        <div className="fixed top-16 left-0 right-0 bg-black bg-opacity-90 z-50 p-4 md:hidden">
-          <button
-            onClick={() => setIsMenuOpen(false)}
-            className="mb-4 text-white underline"
-          >
-            Close Menu
-          </button>
-          <div className="flex flex-col gap-3">
+        {/* Mobile Menu Drawer */}
+        {isMenuOpen && (
+          <div className="fixed top-16 left-0 right-0 bg-black bg-opacity-90 z-50 p-4 md:hidden">
             <button
-              onClick={() => {
-                handlePanelClick("who");
-                setIsMenuOpen(false);
-              }}
-              className="w-full text-left px-4 py-3 bg-gray-800 text-white rounded-lg"
+              onClick={() => setIsMenuOpen(false)}
+              className="mb-4 text-white underline"
             >
-              Who are we?
+              Close Menu
             </button>
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={() => {
+                  handlePanelClick("who");
+                  setIsMenuOpen(false);
+                }}
+                className="w-full text-left px-4 py-3 bg-gray-800 text-white rounded-lg"
+              >
+                Who are we?
+              </button>
 
-            <a
-              href=""
-              className="w-full text-left px-4 py-3 bg-gray-800 text-white rounded-lg"
-            >
-              Contact Us!
-            </a>
-            <button
-              onClick={() => {
-                handlePanelClick("video");
-                setIsMenuOpen(false);
-              }}
-              className="w-full text-left px-4 py-3 bg-gray-800 text-white rounded-lg flex items-center gap-2"
-            >
-              <Icon icon="solar:play-bold" />
-            </button>
+              <a
+                href="http"
+                className="w-full text-left px-4 py-3 bg-gray-800 text-white rounded-lg"
+              >
+                Contact Us!
+              </a>
+              <button
+                onClick={() => {
+                  handlePanelClick("video");
+                  setIsMenuOpen(false);
+                }}
+                className="w-full text-left px-4 py-3 bg-gray-800 text-white rounded-lg flex items-center gap-2"
+              >
+                <Icon icon="solar:play-bold" />
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Left Sidebar Buttons (Desktop Only) */}
-      <div className="absolute left-4 top-20 flex flex-col z-20 hidden md:flex">
-        {/* Logo Panel */}
-        <div className="w-2/3 mb-3 bg-neutral-800/30 backdrop-blur-xl bg-opacity-80 rounded-2xl p-6 shadow-lg">
-          <img
-            src={sponsorContent.logo}
-            alt="Company Logo"
-            className="h-auto m-auto rounded-lg"
-          />
-        </div>
+        {/* Left Sidebar Buttons (Desktop Only) */}
+        <div className="absolute left-4 top-20 flex flex-col z-20 hidden md:flex">
+          {/* Logo Panel */}
+          <div className="w-2/3 mb-3 bg-neutral-800/30 backdrop-blur-xl bg-opacity-80 rounded-2xl p-6 shadow-lg">
+            <img
+              src={sponsorContent.logo}
+              alt="Company Logo"
+              className="h-auto m-auto rounded-lg"
+            />
+          </div>
 
-        {/* Action Buttons */}
-        <button
-          onClick={() => handlePanelClick("who")}
-          className={`mb-3 w-48 text-left px-4 py-3 rounded-2xl transition ${
-            activePanel === "who"
-              ? "bg-blue-100 text-blue-800 border border-blue-300"
-              : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white"
-          }`}
-        >
-          Who are we?
-        </button>
+          {/* Action Buttons */}
+          <button
+            onClick={() => handlePanelClick("who")}
+            className={`mb-3 w-48 text-left px-4 py-3 rounded-2xl transition ${
+              activePanel === "who"
+                ? "bg-blue-100 text-blue-800 border border-blue-300"
+                : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white"
+            }`}
+          >
+            Who are we?
+          </button>
 
-        <div
-          className={`
+          <div
+            className={`
           grid w-full overflow-hidden transition-all duration-300 ease-in-out
           ${
             activePanel == "who"
@@ -188,30 +254,30 @@ const SponsorBooth = ({ sponsor, onBack }) => {
               : "grid-rows-[0fr] opacity-0"
           }
         `}
-        >
-          {/* This inner div is required by the grid method 
+          >
+            {/* This inner div is required by the grid method 
           to measure the content.
         */}
-          <div className="overflow-hidden">
-            {/* --- Your Content Wrapper ---
+            <div className="overflow-hidden">
+              {/* --- Your Content Wrapper ---
             - THIS is where you put your margin-top and padding.
             - When the parent grid collapses to 0 height,
               this element (and its margin) are hidden inside.
           */}
-            <div
-              className={`overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 backdrop-blur-lg text-white bg-opacity-90 p-6 rounded-2xl max-w-lg w-full text-gray-800 shadow-xl`}
-            >
-              <h2 className="text-lg font-medium mb-3">Who are we?</h2>
-              <p className="mb-4">{sponsorContent.whoWeAre}</p>
-              <a href="" className="text-sky-400 underline">
-                Click here to find out more about us!
-              </a>
+              <div
+                className={`overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 backdrop-blur-lg text-white bg-opacity-90 p-6 rounded-2xl max-w-lg w-full text-gray-800 shadow-xl`}
+              >
+                <h2 className="text-lg font-medium mb-3">Who are we?</h2>
+                <p className="mb-4">{sponsorContent.whoWeAre}</p>
+                <a href="" className="text-sky-400 underline">
+                  Click here to find out more about us!
+                </a>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* {activePanel === "who" && ( */}
-        {/* <div
+          {/* {activePanel === "who" && ( */}
+          {/* <div
           className={`${
             activePanel == "who" ? "max-h-96 opacity-100" : "h-0 opacity-0"
           } overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 backdrop-blur-lg text-white bg-opacity-90 p-6 rounded-2xl max-w-lg w-full text-gray-800 shadow-xl`}
@@ -222,186 +288,124 @@ const SponsorBooth = ({ sponsor, onBack }) => {
             Click here to find out more about us!
           </a>
         </div> */}
-        {/* )} */}
+          {/* )} */}
 
-        <a
-          href=""
-          className={`mb-3 w-48 text-left px-4 py-3 rounded-2xl transition
+          <a
+            href="http"
+            className={`mb-3 w-48 text-left px-4 py-3 rounded-2xl transition
               bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white
           `}
-        >
-          Contact Us!
-        </a>
+          >
+            Contact Us!
+          </a>
 
-        <button
-          onClick={() => handlePanelClick("video")}
-          className={`w-32 text-left px-3 py-4 rounded-lg transition flex items-center gap-2 ${
-            activePanel === "video"
-              ? "bg-blue-100 text-blue-800 border border-blue-300"
-              : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white text-4xl"
-          }`}
-        >
-          <Icon icon="solar:play-bold" className="m-auto" />
-        </button>
-      </div>
-
-      {/* Right Info Panel (Desktop Only) */}
-      <div className="absolute right-4 top-20 z-20 hidden md:flex">
-        <div className="flex text-2xl gap-x-2 text-left px-4 py-3 transition bg-neutral-800/30 backdrop-blur-lg rounded-2xl">
           <button
-            onClick={() => handlePanelClick("smartToilet")}
-            className={`p-2 rounded-xl text-white ${
-              activePanel === "smartToilet"
+            onClick={() => handlePanelClick("video")}
+            className={`w-32 text-left px-3 py-4 rounded-lg transition flex items-center gap-2 ${
+              activePanel === "video"
                 ? "bg-blue-100 text-blue-800 border border-blue-300"
-                : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40"
+                : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white text-4xl"
             }`}
           >
-            <Icon icon="mdi:home" />
-          </button>
-          <button
-            onClick={() => handlePanelClick("smartToilet")}
-            className={`p-2 rounded-xl text-white ${
-              activePanel === "smartToilet"
-                ? "bg-blue-100 text-blue-800 border border-blue-300"
-                : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40"
-            }`}
-          >
-            <Icon icon="mdi:home" />
+            <Icon icon="solar:play-bold" className="m-auto" />
           </button>
         </div>
 
-        {activePanel === "smartToilet" && (
-          <div className="ml-3 bg-white bg-opacity-80 backdrop-blur-md rounded-xl p-4 shadow-lg max-w-xs">
-            <img
-              src={sponsorContent.smartToiletInfo.imageUrl}
-              alt="Smart Toilet Diagram"
-              className="w-full h-auto rounded-lg mb-3"
-            />
-            <h3 className="font-bold text-lg mb-2">
-              {sponsorContent.smartToiletInfo.title}
-            </h3>
-            <p className="text-sm mb-3">
-              {sponsorContent.smartToiletInfo.description}
-            </p>
-            <a
-              href={sponsorContent.smartToiletInfo.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline text-sm"
+        {/* Right Info Panel (Desktop Only) */}
+        <div className="absolute right-4 top-20 z-20 hidden md:flex">
+          <div className="flex text-2xl gap-x-2 text-left px-4 py-3 transition bg-neutral-800/30 backdrop-blur-lg rounded-2xl">
+            <button
+              onClick={() => handlePanelClick("smartToilet")}
+              className={`p-2 rounded-xl text-white ${
+                activePanel === "smartToilet"
+                  ? "bg-blue-100 text-blue-800 border border-blue-300"
+                  : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40"
+              }`}
             >
-              For more info
-            </a>
-          </div>
-        )}
-      </div>
-
-      {/* Mobile: Bottom Panel for Buttons */}
-      <div className="md:hidden fixed bottom-4 left-4 right-4 z-20 flex gap-2">
-        <button
-          onClick={() => handlePanelClick("who")}
-          className={`flex-1 text-left px-3 py-2 rounded-lg transition ${
-            activePanel === "who"
-              ? "bg-blue-100 text-blue-800 border border-blue-300"
-              : "bg-gray-100 hover:bg-gray-200"
-          }`}
-        >
-          Who?
-        </button>
-        <button
-          onClick={() => handlePanelClick("contact")}
-          className={`flex-1 text-left px-3 py-2 rounded-lg transition ${
-            activePanel === "contact"
-              ? "bg-blue-100 text-blue-800 border border-blue-300"
-              : "bg-gray-100 hover:bg-gray-200"
-          }`}
-        >
-          Contact
-        </button>
-        <button
-          onClick={() => handlePanelClick("video")}
-          className={`flex-1 text-left px-3 py-2 rounded-lg transition flex items-center justify-center ${
-            activePanel === "video"
-              ? "bg-blue-100 text-blue-800 border border-blue-300"
-              : "bg-gray-100 hover:bg-gray-200"
-          }`}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm2 2h12v8H6V5zm0 10v2h12v-2H6z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
-        <button
-          onClick={() => handlePanelClick("smartToilet")}
-          className={`flex-1 text-left px-3 py-2 rounded-lg transition ${
-            activePanel === "smartToilet"
-              ? "bg-blue-100 text-blue-800 border border-blue-300"
-              : "bg-gray-100 hover:bg-gray-200"
-          }`}
-        >
-          Smart?
-        </button>
-      </div>
-
-      {activePanel === "smartToilet" && (
-        <div className="absolute inset-0 flex items-center justify-center z-30 p-4">
-          <div className="bg-white bg-opacity-90 backdrop-blur-md p-6 rounded-xl max-w-lg w-full mx-4 text-gray-800 shadow-xl">
-            <img
-              src={sponsorContent.smartToiletInfo.imageUrl}
-              alt="Smart Toilet Diagram"
-              className="w-full h-auto rounded-lg mb-3"
-            />
-            <h3 className="font-bold text-lg mb-2">
-              {sponsorContent.smartToiletInfo.title}
-            </h3>
-            <p className="text-sm mb-3">
-              {sponsorContent.smartToiletInfo.description}
-            </p>
-            <a
-              href={sponsorContent.smartToiletInfo.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline text-sm"
+              <Icon icon="mdi:home" />
+            </button>
+            <button
+              onClick={() => handlePanelClick("smartToilet")}
+              className={`p-2 rounded-xl text-white ${
+                activePanel === "smartToilet"
+                  ? "bg-blue-100 text-blue-800 border border-blue-300"
+                  : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40"
+              }`}
             >
-              For more info
-            </a>
+              <Icon icon="mdi:home" />
+            </button>
           </div>
-        </div>
-      )}
 
-      {/* Video Modal */}
-      {showVideoModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-          <div className="bg-neutral-800/30 backdrop-blur-lg rounded-2xl p-4 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-end items-center mb-4">
-              {/* <h2 className="text-xl font-bold">Company Video</h2> */}
-              <button
-                onClick={() => setShowVideoModal(false)}
-                className="text-gray-500 hover:text-gray-700"
+          {activePanel === "smartToilet" && (
+            <div className="ml-3 bg-white bg-opacity-80 backdrop-blur-md rounded-xl p-4 shadow-lg max-w-xs">
+              <img
+                src={sponsorContent.smartToiletInfo.imageUrl}
+                alt="Smart Toilet Diagram"
+                className="w-full h-auto rounded-lg mb-3"
+              />
+              <h3 className="font-bold text-lg mb-2">
+                {sponsorContent.smartToiletInfo.title}
+              </h3>
+              <p className="text-sm mb-3">
+                {sponsorContent.smartToiletInfo.description}
+              </p>
+              <a
+                href={sponsorContent.smartToiletInfo.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline text-sm"
               >
-                ✕
-              </button>
+                For more info
+              </a>
             </div>
-            <div className="aspect-video">
-              <iframe
-                src={sponsorContent.videoUrl}
-                title="Company Video"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full rounded-lg"
-              ></iframe>
-            </div>
-          </div>
+          )}
         </div>
-      )}
+
+        {/* Mobile: Bottom Panel for Buttons */}
+        <div className="md:hidden fixed bottom-4 left-4 right-4 z-20 flex gap-2">
+          <button
+            onClick={() => handlePanelClick("who")}
+            className={`flex-1 text-left px-3 py-2 rounded-lg transition ${
+              activePanel === "who"
+                ? "bg-blue-100 text-blue-800 border border-blue-300"
+                : "bg-gray-100 hover:bg-gray-200"
+            }`}
+          >
+            Who?
+          </button>
+          <button
+            onClick={() => handlePanelClick("contact")}
+            className={`flex-1 text-left px-3 py-2 rounded-lg transition ${
+              activePanel === "contact"
+                ? "bg-blue-100 text-blue-800 border border-blue-300"
+                : "bg-gray-100 hover:bg-gray-200"
+            }`}
+          >
+            Contact
+          </button>
+          <button
+            onClick={() => handlePanelClick("video")}
+            className={`flex-1 text-left px-3 py-2 rounded-lg transition flex items-center justify-center ${
+              activePanel === "video"
+                ? "bg-blue-100 text-blue-800 border border-blue-300"
+                : "bg-gray-100 hover:bg-gray-200"
+            }`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm2 2h12v8H6V5zm0 10v2h12v-2H6z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

@@ -8,7 +8,7 @@ function App() {
 
   const sponsors = [
     { id: "gold1", name: "EcoFlush Pte Ltd", tier: "gold" },
-    { id: "silver1", name: "PureSan Solutions", tier: "silver" },
+    { id: "silver1", name: "tes", tier: "silver" },
     { id: "bronze1", name: "CleanRest Co", tier: "bronze" },
   ];
 
