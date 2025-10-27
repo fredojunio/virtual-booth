@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import toiletBg from "./assets/3d-toilet-background.jpeg";
 import boothBg from "./assets/3d-booth.png";
 import logoSponsor from "./assets/logo.png";
+import detailIcon from "./assets/detail-icon.png";
 import { Icon } from "@iconify/react";
 
 const SponsorBooth = ({ sponsor, onBack }) => {
@@ -26,8 +27,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
       description: `
         In the context of maintenance, cleaning and upkeeping of toilet/restroom, Smart toilet or instig until univerisma and iner on (os) to constantly monitor the state of the toilet to optimize hygiene, safety, and resource usage.
       `,
-      imageUrl:
-        "https://placehold.co/600x300/1e40af/white?text=Smart+Toilet+Diagram",
+      imageUrl: detailIcon,
       link: "https://www.infinergy.com.sg/smart_toilet.htm",
     },
   };
@@ -96,32 +96,6 @@ const SponsorBooth = ({ sponsor, onBack }) => {
         </div>
       )}
 
-      {activePanel === "smartToilet" && (
-        <div className="absolute inset-0 flex items-center justify-center z-30 p-4">
-          <div className="bg-white bg-opacity-90 backdrop-blur-md p-6 rounded-xl max-w-lg w-full mx-4 text-gray-800 shadow-xl">
-            <img
-              src={sponsorContent.smartToiletInfo.imageUrl}
-              alt="Smart Toilet Diagram"
-              className="w-full h-auto rounded-lg mb-3"
-            />
-            <h3 className="font-bold text-lg mb-2">
-              {sponsorContent.smartToiletInfo.title}
-            </h3>
-            <p className="text-sm mb-3">
-              {sponsorContent.smartToiletInfo.description}
-            </p>
-            <a
-              href={sponsorContent.smartToiletInfo.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline text-sm"
-            >
-              For more info
-            </a>
-          </div>
-        </div>
-      )}
-
       {/* Animated Content Wrapper */}
       {/* <div
         className={`relative h-full w-full z-10 transition-opacity ${
@@ -144,200 +118,186 @@ const SponsorBooth = ({ sponsor, onBack }) => {
         <h1 className="text-2xl font-bold text-white hidden md:block">
           {sponsor.name || sponsorContent.name}
         </h1>
+      </div>
 
-        {/* Mobile: Hamburger Menu */}
-        <div className="md:hidden flex gap-2">
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 bg-gray-200 bg-opacity-80 backdrop-blur-md rounded-full hover:bg-gray-300 transition"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
-          <button className="p-2 bg-gray-200 bg-opacity-80 backdrop-blur-md rounded-full hover:bg-gray-300 transition">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-6 3 3 0 010 6zm10.346 8.784-8-8 .346-.346a6 6 0 008 8l-.346.346z"
-              />
-            </svg>
-          </button>
-        </div>
-        {/* Mobile Menu Drawer */}
-        {isMenuOpen && (
-          <div className="fixed top-16 left-0 right-0 bg-black bg-opacity-90 z-50 p-4 md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(false)}
-              className="mb-4 text-white underline"
-            >
-              Close Menu
-            </button>
-            <div className="flex flex-col gap-3">
-              <button
-                onClick={() => {
-                  handlePanelClick("who");
-                  setIsMenuOpen(false);
-                }}
-                className="w-full text-left px-4 py-3 bg-gray-800 text-white rounded-lg"
-              >
-                Who are we?
-              </button>
-
-              <a
-                href="http"
-                className="w-full text-left px-4 py-3 bg-gray-800 text-white rounded-lg"
-              >
-                Contact Us!
-              </a>
-              <button
-                onClick={() => {
-                  handlePanelClick("video");
-                  setIsMenuOpen(false);
-                }}
-                className="w-full text-left px-4 py-3 bg-gray-800 text-white rounded-lg flex items-center gap-2"
-              >
-                <Icon icon="solar:play-bold" />
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Left Sidebar Buttons (Desktop Only) */}
-        <div className="absolute left-4 top-20 flex flex-col z-20 hidden md:flex">
-          {/* Logo Panel */}
-          <div className="w-2/3 mb-3 bg-neutral-800/30 backdrop-blur-xl bg-opacity-80 rounded-2xl p-6 shadow-lg">
-            <img
-              src={sponsorContent.logo}
-              alt="Company Logo"
-              className="h-auto m-auto rounded-lg"
-            />
-          </div>
-
-          {/* Action Buttons */}
-          <button
-            onClick={() => handlePanelClick("who")}
-            className={`mb-3 w-48 text-left px-4 py-3 rounded-2xl transition ${
-              activePanel === "who"
-                ? "bg-blue-100 text-blue-800 border border-blue-300"
-                : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white"
-            }`}
-          >
-            Who are we?
-          </button>
-
-          <div
-            className={`
-          grid w-full overflow-hidden transition-all duration-300 ease-in-out
-          ${
-            activePanel == "who"
-              ? "grid-rows-[1fr] opacity-100 mb-3"
-              : "grid-rows-[0fr] opacity-0"
-          }
-        `}
-          >
-            {/* This inner div is required by the grid method 
-          to measure the content.
-        */}
-            <div className="overflow-hidden">
-              {/* --- Your Content Wrapper ---
-            - THIS is where you put your margin-top and padding.
-            - When the parent grid collapses to 0 height,
-              this element (and its margin) are hidden inside.
-          */}
-              <div
-                className={`overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 backdrop-blur-lg text-white bg-opacity-90 p-6 rounded-2xl max-w-lg w-full text-gray-800 shadow-xl`}
-              >
-                <h2 className="text-lg font-medium mb-3">Who are we?</h2>
-                <p className="mb-4">{sponsorContent.whoWeAre}</p>
-                <a href="" className="text-sky-400 underline">
-                  Click here to find out more about us!
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* {activePanel === "who" && ( */}
-          {/* <div
-          className={`${
-            activePanel == "who" ? "max-h-96 opacity-100" : "h-0 opacity-0"
-          } overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 backdrop-blur-lg text-white bg-opacity-90 p-6 rounded-2xl max-w-lg w-full text-gray-800 shadow-xl`}
+      {/* Mobile: Hamburger Menu */}
+      <div className="md:hidden flex gap-2">
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="p-2 bg-gray-200 bg-opacity-80 backdrop-blur-md rounded-full hover:bg-gray-300 transition"
         >
-          <h2 className="text-lg font-medium mb-3">Who are we?</h2>
-          <p className="mb-4">{sponsorContent.whoWeAre}</p>
-          <a href="" className="text-sky-400 underline">
-            Click here to find out more about us!
-          </a>
-        </div> */}
-          {/* )} */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+        <button className="p-2 bg-gray-200 bg-opacity-80 backdrop-blur-md rounded-full hover:bg-gray-300 transition">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-6 3 3 0 010 6zm10.346 8.784-8-8 .346-.346a6 6 0 008 8l-.346.346z"
+            />
+          </svg>
+        </button>
+      </div>
+      {/* Mobile Menu Drawer */}
+      {isMenuOpen && (
+        <div className="fixed top-16 left-0 right-0 bg-black bg-opacity-90 z-50 p-4 md:hidden">
+          <button
+            onClick={() => setIsMenuOpen(false)}
+            className="mb-4 text-white underline"
+          >
+            Close Menu
+          </button>
+          <div className="flex flex-col gap-3">
+            <button
+              onClick={() => {
+                handlePanelClick("who");
+                setIsMenuOpen(false);
+              }}
+              className="w-full text-left px-4 py-3 bg-gray-800 text-white rounded-lg"
+            >
+              Who are we?
+            </button>
 
-          <a
-            href="http"
-            className={`mb-3 w-48 text-left px-4 py-3 rounded-2xl transition
+            <a
+              href="http"
+              className="w-full text-left px-4 py-3 bg-gray-800 text-white rounded-lg"
+            >
+              Contact Us!
+            </a>
+            <button
+              onClick={() => {
+                handlePanelClick("video");
+                setIsMenuOpen(false);
+              }}
+              className="w-full text-left px-4 py-3 bg-gray-800 text-white rounded-lg flex items-center gap-2"
+            >
+              <Icon icon="solar:play-bold" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Left Sidebar Buttons (Desktop Only) */}
+      <div className="absolute left-4 top-20 flex flex-col z-20 hidden md:flex">
+        {/* Logo Panel */}
+        <div className="w-2/3 mb-3 bg-neutral-800/30 backdrop-blur-xl bg-opacity-80 rounded-2xl p-6 shadow-lg">
+          <img
+            src={sponsorContent.logo}
+            alt="Company Logo"
+            className="h-auto m-auto rounded-lg"
+          />
+        </div>
+
+        {/* Action Buttons */}
+        <button
+          onClick={() => handlePanelClick("who")}
+          className={`mb-3 w-48 text-left px-4 py-3 rounded-2xl transition ${
+            activePanel === "who"
+              ? "bg-blue-100 text-blue-800 border border-blue-300"
+              : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white"
+          }`}
+        >
+          Who are we?
+        </button>
+
+        <div
+          className={`
+                  grid w-full overflow-hidden transition-all duration-300 ease-in-out
+                  ${
+                    activePanel === "who"
+                      ? "grid-rows-[1fr] opacity-100 mb-3"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
+        >
+          <div className="overflow-hidden">
+            <div
+              className={`overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 backdrop-blur-lg text-white bg-opacity-90 p-6 rounded-2xl max-w-lg w-full shadow-xl`}
+            >
+              <h2 className="text-lg font-medium mb-3">Who are we?</h2>
+              <p className="mb-4">{sponsorContent.whoWeAre}</p>
+              <a href="http" className="text-sky-400 underline">
+                Click here to find out more about us!
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a
+          href="http"
+          className={`mb-3 w-48 text-left px-4 py-3 rounded-2xl transition
               bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white
           `}
-          >
-            Contact Us!
-          </a>
+        >
+          Contact Us!
+        </a>
 
+        <button
+          onClick={() => handlePanelClick("video")}
+          className={`w-32 text-left px-3 py-4 rounded-lg transition flex items-center gap-2 ${
+            activePanel === "video"
+              ? "bg-blue-100 text-blue-800 border border-blue-300"
+              : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white text-4xl"
+          }`}
+        >
+          <Icon icon="solar:play-bold" className="m-auto" />
+        </button>
+      </div>
+
+      {/* Right Info Panel (Desktop Only) */}
+      <div className="absolute right-4 top-20 z-20 items-end hidden md:flex md:flex-col gap-3">
+        <div className="flex text-2xl max-w-min gap-x-2 text-left px-4 py-3 transition bg-neutral-800/30 backdrop-blur-lg rounded-2xl">
           <button
-            onClick={() => handlePanelClick("video")}
-            className={`w-32 text-left px-3 py-4 rounded-lg transition flex items-center gap-2 ${
-              activePanel === "video"
+            onClick={() => handlePanelClick("smartToilet")}
+            className={`p-2 rounded-xl ${
+              activePanel === "smartToilet"
                 ? "bg-blue-100 text-blue-800 border border-blue-300"
-                : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white text-4xl"
+                : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
             }`}
           >
-            <Icon icon="solar:play-bold" className="m-auto" />
+            <Icon icon="mdi:toilet-paper-outline" />
+          </button>
+          <button
+            onClick={() => handlePanelClick("smartToilet")}
+            className={`p-2 rounded-xl ${
+              activePanel === "smartToilet"
+                ? "bg-blue-100 text-blue-800 border border-blue-300"
+                : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
+            }`}
+          >
+            <Icon icon="hugeicons:toilet-01" />
           </button>
         </div>
-
-        {/* Right Info Panel (Desktop Only) */}
-        <div className="absolute right-4 top-20 z-20 hidden md:flex">
-          <div className="flex text-2xl gap-x-2 text-left px-4 py-3 transition bg-neutral-800/30 backdrop-blur-lg rounded-2xl">
-            <button
-              onClick={() => handlePanelClick("smartToilet")}
-              className={`p-2 rounded-xl text-white ${
-                activePanel === "smartToilet"
-                  ? "bg-blue-100 text-blue-800 border border-blue-300"
-                  : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40"
-              }`}
-            >
-              <Icon icon="mdi:home" />
-            </button>
-            <button
-              onClick={() => handlePanelClick("smartToilet")}
-              className={`p-2 rounded-xl text-white ${
-                activePanel === "smartToilet"
-                  ? "bg-blue-100 text-blue-800 border border-blue-300"
-                  : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40"
-              }`}
-            >
-              <Icon icon="mdi:home" />
-            </button>
-          </div>
-
-          {activePanel === "smartToilet" && (
-            <div className="ml-3 bg-white bg-opacity-80 backdrop-blur-md rounded-xl p-4 shadow-lg max-w-xs">
+        <div
+          className={`
+                  grid w-full overflow-hidden transition-all duration-300 ease-in-out
+                  ${
+                    activePanel === "smartToilet"
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
+        >
+          <div className="overflow-hidden">
+            <div className="overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 text-white bg-opacity-90 backdrop-blur-xl rounded-2xl p-6 max-w-lg w-full shadow-xl">
               <img
                 src={sponsorContent.smartToiletInfo.imageUrl}
                 alt="Smart Toilet Diagram"
@@ -353,58 +313,58 @@ const SponsorBooth = ({ sponsor, onBack }) => {
                 href={sponsorContent.smartToiletInfo.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 underline text-sm"
+                className="text-sky-400 underline text-sm"
               >
                 For more info
               </a>
             </div>
-          )}
+          </div>
         </div>
+      </div>
 
-        {/* Mobile: Bottom Panel for Buttons */}
-        <div className="md:hidden fixed bottom-4 left-4 right-4 z-20 flex gap-2">
-          <button
-            onClick={() => handlePanelClick("who")}
-            className={`flex-1 text-left px-3 py-2 rounded-lg transition ${
-              activePanel === "who"
-                ? "bg-blue-100 text-blue-800 border border-blue-300"
-                : "bg-gray-100 hover:bg-gray-200"
-            }`}
+      {/* Mobile: Bottom Panel for Buttons */}
+      <div className="md:hidden fixed bottom-4 left-4 right-4 z-20 flex gap-2">
+        <button
+          onClick={() => handlePanelClick("who")}
+          className={`flex-1 text-left px-3 py-2 rounded-lg transition ${
+            activePanel === "who"
+              ? "bg-blue-100 text-blue-800 border border-blue-300"
+              : "bg-gray-100 hover:bg-gray-200"
+          }`}
+        >
+          Who?
+        </button>
+        <button
+          onClick={() => handlePanelClick("contact")}
+          className={`flex-1 text-left px-3 py-2 rounded-lg transition ${
+            activePanel === "contact"
+              ? "bg-blue-100 text-blue-800 border border-blue-300"
+              : "bg-gray-100 hover:bg-gray-200"
+          }`}
+        >
+          Contact
+        </button>
+        <button
+          onClick={() => handlePanelClick("video")}
+          className={`flex-1 text-left px-3 py-2 rounded-lg transition flex items-center justify-center ${
+            activePanel === "video"
+              ? "bg-blue-100 text-blue-800 border border-blue-300"
+              : "bg-gray-100 hover:bg-gray-200"
+          }`}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
           >
-            Who?
-          </button>
-          <button
-            onClick={() => handlePanelClick("contact")}
-            className={`flex-1 text-left px-3 py-2 rounded-lg transition ${
-              activePanel === "contact"
-                ? "bg-blue-100 text-blue-800 border border-blue-300"
-                : "bg-gray-100 hover:bg-gray-200"
-            }`}
-          >
-            Contact
-          </button>
-          <button
-            onClick={() => handlePanelClick("video")}
-            className={`flex-1 text-left px-3 py-2 rounded-lg transition flex items-center justify-center ${
-              activePanel === "video"
-                ? "bg-blue-100 text-blue-800 border border-blue-300"
-                : "bg-gray-100 hover:bg-gray-200"
-            }`}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm2 2h12v8H6V5zm0 10v2h12v-2H6z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-        </div>
+            <path
+              fillRule="evenodd"
+              d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm2 2h12v8H6V5zm0 10v2h12v-2H6z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
       </div>
     </div>
   );

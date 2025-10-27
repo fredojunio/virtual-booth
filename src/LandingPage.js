@@ -91,21 +91,21 @@ const LandingPage = ({ onViewChange, onSponsorClick, sponsors }) => {
           World Toilet Day <br /> Loo Awards 2025
         </h1>
         <a
-          href="http"
+          href="https://www.toilet.org.sg/loowards"
           className="w-72 text-left px-4 py-3 rounded-2xl transition
                     bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
         >
           What is the Loo Awards?
         </a>
         <a
-          href="http"
+          href="https://www.toilet.org.sg/about"
           className="w-72 text-left px-4 py-3 rounded-2xl transition
                     bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
         >
           More about Restroom Association
         </a>
         <a
-          href="http"
+          href="https://www.giving.sg/organisation/profile/d11d7604-261a-4581-980b-0b12b75550b0"
           className="w-72 text-left px-4 py-3 rounded-2xl transition
                     bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
         >
