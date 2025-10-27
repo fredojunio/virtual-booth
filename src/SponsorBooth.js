@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import toiletBg from "./assets/3d-toilet-background.jpeg";
 import boothBg from "./assets/3d-booth.png";
 import logoSponsor from "./assets/logo.png";
 import detailIcon from "./assets/detail-icon.png";
