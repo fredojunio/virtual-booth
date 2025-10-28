@@ -120,10 +120,10 @@ const SponsorBooth = ({ sponsor, onBack }) => {
       </div>
 
       {/* Mobile: Hamburger Menu */}
-      <div className="md:hidden flex gap-2">
-        <button
+      <div className="md:hidden flex gap-2 mx-4">
+        {/* <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="p-2 bg-gray-200 bg-opacity-80 backdrop-blur-md rounded-full hover:bg-gray-300 transition"
+          className="max-h-min max-w-min p-2 bg-gray-200 bg-opacity-80 backdrop-blur-md rounded-full hover:bg-gray-300 transition"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -139,26 +139,67 @@ const SponsorBooth = ({ sponsor, onBack }) => {
               d="M4 6h16M4 12h16M4 18h16"
             />
           </svg>
-        </button>
-        <button className="p-2 bg-gray-200 bg-opacity-80 backdrop-blur-md rounded-full hover:bg-gray-300 transition">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+        </button> */}
+        <div className="z-20 items-end flex flex-col gap-3">
+          <div className="flex text-xl max-w-min gap-x-2 text-left px-4 py-3 transition bg-neutral-800/30 backdrop-blur-lg rounded-2xl">
+            <button
+              onClick={() => handlePanelClick("smartToilet")}
+              className={`p-2 rounded-xl ${
+                activePanel === "smartToilet"
+                  ? "bg-blue-100 text-blue-800 border border-blue-300"
+                  : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
+              }`}
+            >
+              <Icon icon="mdi:toilet-paper-outline" />
+            </button>
+            <button
+              onClick={() => handlePanelClick("smartToilet")}
+              className={`p-2 rounded-xl ${
+                activePanel === "smartToilet"
+                  ? "bg-blue-100 text-blue-800 border border-blue-300"
+                  : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
+              }`}
+            >
+              <Icon icon="hugeicons:toilet-01" />
+            </button>
+          </div>
+          <div
+            className={`
+                  grid w-full overflow-hidden transition-all duration-300 ease-in-out
+                  ${
+                    activePanel === "smartToilet"
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-6 3 3 0 010 6zm10.346 8.784-8-8 .346-.346a6 6 0 008 8l-.346.346z"
-            />
-          </svg>
-        </button>
+            <div className="overflow-hidden">
+              <div className="overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 text-white bg-opacity-90 backdrop-blur-xl rounded-2xl p-6 max-w-lg w-full shadow-xl">
+                <img
+                  src={sponsorContent.smartToiletInfo.imageUrl}
+                  alt="Smart Toilet Diagram"
+                  className="w-full h-auto rounded-lg mb-3"
+                />
+                <h3 className="font-bold text-lg mb-2">
+                  {sponsorContent.smartToiletInfo.title}
+                </h3>
+                <p className="text-sm mb-3">
+                  {sponsorContent.smartToiletInfo.description}
+                </p>
+                <a
+                  href={sponsorContent.smartToiletInfo.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sky-400 underline text-sm"
+                >
+                  For more info
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       {/* Mobile Menu Drawer */}
-      {isMenuOpen && (
+      {/* {isMenuOpen && (
         <div className="fixed top-16 left-0 right-0 bg-black bg-opacity-90 z-50 p-4 md:hidden">
           <button
             onClick={() => setIsMenuOpen(false)}
@@ -194,7 +235,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
             </button>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Left Sidebar Buttons (Desktop Only) */}
       <div className="absolute left-4 top-20 flex flex-col z-20 hidden md:flex">
@@ -322,47 +363,59 @@ const SponsorBooth = ({ sponsor, onBack }) => {
       </div>
 
       {/* Mobile: Bottom Panel for Buttons */}
+      <div className="md:hidden fixed bottom-20 left-4 right-4 z-20 flex gap-2">
+        <div
+          className={`
+                  grid w-full overflow-hidden transition-all duration-300 ease-in-out
+                  ${
+                    activePanel === "who"
+                      ? "grid-rows-[1fr] opacity-100 mb-3"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
+        >
+          <div className="overflow-hidden">
+            <div
+              className={`overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 backdrop-blur-lg text-white bg-opacity-90 p-6 rounded-2xl max-w-lg w-full shadow-xl`}
+            >
+              <h2 className="text-lg font-medium mb-3">Who are we?</h2>
+              <p className="mb-4">{sponsorContent.whoWeAre}</p>
+              <a href="http" className="text-sky-400 underline">
+                Click here to find out more about us!
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="md:hidden fixed bottom-4 left-4 right-4 z-20 flex gap-2">
         <button
           onClick={() => handlePanelClick("who")}
           className={`flex-1 text-left px-3 py-2 rounded-lg transition ${
             activePanel === "who"
-              ? "bg-blue-100 text-blue-800 border border-blue-300"
-              : "bg-gray-100 hover:bg-gray-200"
+              ? "bg-blue-100 text-blue-800 "
+              : "bg-neutral-800/30 hover:bg-neutral-950/30 text-white"
           }`}
         >
-          Who?
+          Who are we?
         </button>
         <button
           onClick={() => handlePanelClick("contact")}
           className={`flex-1 text-left px-3 py-2 rounded-lg transition ${
             activePanel === "contact"
               ? "bg-blue-100 text-blue-800 border border-blue-300"
-              : "bg-gray-100 hover:bg-gray-200"
+              : "bg-neutral-800/30 hover:bg-neutral-950/30 text-white"
           }`}
         >
-          Contact
+          Contact us
         </button>
         <button
           onClick={() => handlePanelClick("video")}
           className={`flex-1 text-left px-3 py-2 rounded-lg transition flex items-center justify-center ${
             activePanel === "video"
               ? "bg-blue-100 text-blue-800 border border-blue-300"
-              : "bg-gray-100 hover:bg-gray-200"
+              : "bg-neutral-800/30 hover:bg-neutral-950/30 text-white"
           }`}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm2 2h12v8H6V5zm0 10v2h12v-2H6z"
-              clipRule="evenodd"
-            />
-          </svg>
+          <Icon icon="solar:play-bold" className="m-auto" />
         </button>
       </div>
     </div>

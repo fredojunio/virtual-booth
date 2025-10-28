@@ -84,9 +84,15 @@ const LandingPage = ({ onViewChange, onSponsorClick, sponsors }) => {
   ];
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-[200vh] h-screen overflow-hidden overflow-x-auto">
+      <img
+        src={toiletBg}
+        alt="background"
+        className="absolute top-0 left-0 h-full w-full object-cover pointer-events-none select-none landing-container"
+      />
+
       {/* Left Sidebar Buttons (Desktop Only) */}
-      <div className="absolute left-4 gap-3 top-10 flex flex-col z-20 hidden md:flex bg-neutral-800/30 backdrop-blur-lg rounded-3xl p-5">
+      <div className="left-1/2 transform -translate-x-1/2 md:translate-x-0 text-center md:text-left fixed md:left-4 right-auto gap-3 top-10 flex-col z-20 md:items-start items-center flex bg-neutral-800/30 backdrop-blur-lg rounded-3xl p-5">
         <h1 className="text-white font-medium text-4xl">
           World Toilet Day <br /> Loo Awards 2025
         </h1>
@@ -99,7 +105,7 @@ const LandingPage = ({ onViewChange, onSponsorClick, sponsors }) => {
         </a>
         <a
           href="https://www.toilet.org.sg/about"
-          className="w-72 text-left px-4 py-3 rounded-2xl transition
+          className="w-72 w-scr text-left px-4 py-3 rounded-2xl transition
                     bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
         >
           More about Restroom Association
@@ -113,12 +119,12 @@ const LandingPage = ({ onViewChange, onSponsorClick, sponsors }) => {
         </a>
       </div>
       {/* Background Image */}
-      <div
+      {/* <div
         className="absolute inset-0 bg-cover bg-center landing-container"
         style={{
           backgroundImage: `url(${toiletBg})`,
         }}
-      />
+      /> */}
 
       {/* Sponsor Hotspots */}
       <div className="absolute inset-0 pointer-events-none">
