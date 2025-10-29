@@ -2,7 +2,7 @@ import React from "react";
 import toiletBg from "./assets/3d-toilet-background.jpeg";
 import logoSponsor from "./assets/logo.png";
 
-const LandingPage = ({ onViewChange, onSponsorClick, sponsors }) => {
+const LandingPage = ({ onViewChange, onSponsorClick }) => {
   const [containerSize, setContainerSize] = React.useState({
     width: 0,
     height: 0,
@@ -84,7 +84,7 @@ const LandingPage = ({ onViewChange, onSponsorClick, sponsors }) => {
   ];
 
   return (
-    <div className="relative w-[200vh] h-screen overflow-hidden overflow-x-auto">
+    <div className="relative w-[200vh] h-screen overflow-y-hidden overflow-x-auto bg-black">
       <img
         src={toiletBg}
         alt="background"
@@ -144,7 +144,7 @@ const LandingPage = ({ onViewChange, onSponsorClick, sponsors }) => {
               title={`Visit ${sponsor.name} Booth`}
             >
               {/* The Sponsor Button */}
-              <div className="animate-pulse w-full h-full bg-white/80 rounded-full flex items-center justify-center text-xl text-gray-800 border-4 border-neutral-800/30 backdrop-blur-lg shadow-lg"></div>
+              <div className="animate-pulse hover:animate-none w-full h-full bg-white/80 rounded-full flex items-center justify-center text-xl text-gray-800 border-4 border-neutral-800/30 hover:bg-brand-300 backdrop-blur-lg shadow-lg"></div>
 
               {/* Tooltip (shows on hover) */}
               <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">

@@ -108,7 +108,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
       <div className="relative z-10 flex justify-between items-center p-4">
         <button
           onClick={onBack}
-          className="px-4 py-2 bg-neutral-800/30 text-white backdrop-blur-xl rounded-2xl hover:bg-blue-700 transition"
+          className="px-4 py-2 bg-neutral-800/30 text-white backdrop-blur-xl rounded-2xl hover:bg-brand-800/80 transition"
         >
           ←
         </button>
@@ -146,7 +146,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
               onClick={() => handlePanelClick("smartToilet")}
               className={`p-2 rounded-xl ${
                 activePanel === "smartToilet"
-                  ? "bg-blue-100 text-blue-800 border border-blue-300"
+                  ? "bg-brand-800/80 backdrop-blur-lg text-white"
                   : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
               }`}
             >
@@ -156,7 +156,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
               onClick={() => handlePanelClick("smartToilet")}
               className={`p-2 rounded-xl ${
                 activePanel === "smartToilet"
-                  ? "bg-blue-100 text-blue-800 border border-blue-300"
+                  ? "bg-brand-800/80 backdrop-blur-lg text-white"
                   : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
               }`}
             >
@@ -253,7 +253,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
           onClick={() => handlePanelClick("who")}
           className={`mb-3 w-48 text-left px-4 py-3 rounded-2xl transition ${
             activePanel === "who"
-              ? "bg-blue-100 text-blue-800 border border-blue-300"
+              ? "bg-brand-800/80 backdrop-blur-lg text-white border border-brand-300"
               : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white"
           }`}
         >
@@ -284,9 +284,8 @@ const SponsorBooth = ({ sponsor, onBack }) => {
 
         <a
           href="http"
-          className={`mb-3 w-48 text-left px-4 py-3 rounded-2xl transition
-              bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white
-          `}
+          className="mb-3 w-48 text-left px-4 py-3 rounded-2xl transition
+              bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white"
         >
           Contact Us!
         </a>
@@ -295,7 +294,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
           onClick={() => handlePanelClick("video")}
           className={`w-32 text-left px-3 py-4 rounded-lg transition flex items-center gap-2 ${
             activePanel === "video"
-              ? "bg-blue-100 text-blue-800 border border-blue-300"
+              ? "bg-brand-800/80 backdrop-blur-lg text-white border border-brand-300"
               : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white text-4xl"
           }`}
         >
@@ -310,7 +309,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
             onClick={() => handlePanelClick("smartToilet")}
             className={`p-2 rounded-xl ${
               activePanel === "smartToilet"
-                ? "bg-blue-100 text-blue-800 border border-blue-300"
+                ? "bg-brand-800/80 backdrop-blur-lg text-white"
                 : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
             }`}
           >
@@ -320,7 +319,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
             onClick={() => handlePanelClick("smartToilet")}
             className={`p-2 rounded-xl ${
               activePanel === "smartToilet"
-                ? "bg-blue-100 text-blue-800 border border-blue-300"
+                ? "bg-brand-800/80 backdrop-blur-lg text-white"
                 : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
             }`}
           >
@@ -391,7 +390,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
           onClick={() => handlePanelClick("who")}
           className={`flex-1 text-left px-3 py-2 rounded-lg transition ${
             activePanel === "who"
-              ? "bg-blue-100 text-blue-800 "
+              ? "bg-brand-800/80 backdrop-blur-lg text-white"
               : "bg-neutral-800/30 hover:bg-neutral-950/30 text-white"
           }`}
         >
@@ -399,11 +398,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
         </button>
         <button
           onClick={() => handlePanelClick("contact")}
-          className={`flex-1 text-left px-3 py-2 rounded-lg transition ${
-            activePanel === "contact"
-              ? "bg-blue-100 text-blue-800 border border-blue-300"
-              : "bg-neutral-800/30 hover:bg-neutral-950/30 text-white"
-          }`}
+          className="flex-1 text-left px-3 py-2 rounded-lg transition bg-neutral-800/30 hover:bg-neutral-950/30 text-white"
         >
           Contact us
         </button>
@@ -411,7 +406,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
           onClick={() => handlePanelClick("video")}
           className={`flex-1 text-left px-3 py-2 rounded-lg transition flex items-center justify-center ${
             activePanel === "video"
-              ? "bg-blue-100 text-blue-800 border border-blue-300"
+              ? "bg-brand-800/80 backdrop-blur-lg text-white"
               : "bg-neutral-800/30 hover:bg-neutral-950/30 text-white"
           }`}
         >
