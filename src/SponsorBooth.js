@@ -5,8 +5,13 @@ import detailIcon from "./assets/detail-icon.png";
 import { Icon } from "@iconify/react";
 
 const SponsorBooth = ({ sponsor, onBack }) => {
-  const [activePanel, setActivePanel] = useState(null); // 'who', 'contact', 'video', 'smartToilet'
+  const [activePanels, setActivePanels] = useState({
+    who: false,
+    video: false,
+    smartToilet: false,
+  }); // 'who', 'contact', 'video', 'smartToilet'
   const [showVideoModal, setShowVideoModal] = useState(false);
+  const [activeSmartToiletIcon, setActiveSmartToiletIcon] = useState(null); // 'icon1' or 'icon2'
   const [isMenuOpen, setIsMenuOpen] = useState(false); // For mobile hamburger
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -35,7 +40,10 @@ const SponsorBooth = ({ sponsor, onBack }) => {
     if (panelId === "video") {
       setShowVideoModal(true);
     } else {
-      setActivePanel(activePanel === panelId ? null : panelId);
+      setActivePanels((prev) => ({
+        ...prev,
+        [panelId]: !prev[panelId],
+      }));
     }
   };
 
@@ -43,7 +51,13 @@ const SponsorBooth = ({ sponsor, onBack }) => {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
-        setActivePanel(null);
+        // Close all panels on mobile
+        setActivePanels({
+          who: false,
+          contact: false,
+          video: false,
+          smartToilet: false,
+        });
         setIsMenuOpen(false);
       }
     };
@@ -143,9 +157,14 @@ const SponsorBooth = ({ sponsor, onBack }) => {
         <div className="z-20 items-end flex flex-col gap-3">
           <div className="flex text-xl max-w-min gap-x-2 text-left px-4 py-3 transition bg-neutral-800/30 backdrop-blur-lg rounded-2xl">
             <button
-              onClick={() => handlePanelClick("smartToilet")}
+              onClick={() => {
+                handlePanelClick("smartToilet");
+                setActiveSmartToiletIcon(
+                  activeSmartToiletIcon === "icon1" ? null : "icon1"
+                );
+              }}
               className={`p-2 rounded-xl ${
-                activePanel === "smartToilet"
+                activeSmartToiletIcon === "icon1"
                   ? "bg-brand-800/80 backdrop-blur-lg text-white"
                   : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
               }`}
@@ -153,9 +172,14 @@ const SponsorBooth = ({ sponsor, onBack }) => {
               <Icon icon="mdi:toilet-paper-outline" />
             </button>
             <button
-              onClick={() => handlePanelClick("smartToilet")}
+              onClick={() => {
+                handlePanelClick("smartToilet");
+                setActiveSmartToiletIcon(
+                  activeSmartToiletIcon === "icon2" ? null : "icon2"
+                );
+              }}
               className={`p-2 rounded-xl ${
-                activePanel === "smartToilet"
+                activeSmartToiletIcon === "icon2"
                   ? "bg-brand-800/80 backdrop-blur-lg text-white"
                   : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
               }`}
@@ -167,7 +191,8 @@ const SponsorBooth = ({ sponsor, onBack }) => {
             className={`
                   grid w-full overflow-hidden transition-all duration-300 ease-in-out
                   ${
-                    activePanel === "smartToilet"
+                    activeSmartToiletIcon === "icon1" ||
+                    activeSmartToiletIcon === "icon2"
                       ? "grid-rows-[1fr] opacity-100"
                       : "grid-rows-[0fr] opacity-0"
                   }`}
@@ -252,7 +277,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
         <button
           onClick={() => handlePanelClick("who")}
           className={`mb-3 w-48 text-left px-4 py-3 rounded-2xl transition ${
-            activePanel === "who"
+            activePanels.who
               ? "bg-brand-800/80 backdrop-blur-lg text-white border border-brand-300"
               : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white"
           }`}
@@ -264,7 +289,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
           className={`
                   grid w-full overflow-hidden transition-all duration-300 ease-in-out
                   ${
-                    activePanel === "who"
+                    activePanels.who
                       ? "grid-rows-[1fr] opacity-100 mb-3"
                       : "grid-rows-[0fr] opacity-0"
                   }`}
@@ -293,7 +318,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
         <button
           onClick={() => handlePanelClick("video")}
           className={`w-32 text-left px-3 py-4 rounded-lg transition flex items-center gap-2 ${
-            activePanel === "video"
+            activePanels.video
               ? "bg-brand-800/80 backdrop-blur-lg text-white border border-brand-300"
               : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white text-4xl"
           }`}
@@ -306,9 +331,14 @@ const SponsorBooth = ({ sponsor, onBack }) => {
       <div className="absolute right-4 top-20 z-20 items-end hidden md:flex md:flex-col gap-3">
         <div className="flex text-2xl max-w-min gap-x-2 text-left px-4 py-3 transition bg-neutral-800/30 backdrop-blur-lg rounded-2xl">
           <button
-            onClick={() => handlePanelClick("smartToilet")}
+            onClick={() => {
+              handlePanelClick("smartToilet");
+              setActiveSmartToiletIcon(
+                activeSmartToiletIcon === "icon1" ? null : "icon1"
+              );
+            }}
             className={`p-2 rounded-xl ${
-              activePanel === "smartToilet"
+              activeSmartToiletIcon === "icon1"
                 ? "bg-brand-800/80 backdrop-blur-lg text-white"
                 : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
             }`}
@@ -316,9 +346,14 @@ const SponsorBooth = ({ sponsor, onBack }) => {
             <Icon icon="mdi:toilet-paper-outline" />
           </button>
           <button
-            onClick={() => handlePanelClick("smartToilet")}
+            onClick={() => {
+              handlePanelClick("smartToilet");
+              setActiveSmartToiletIcon(
+                activeSmartToiletIcon === "icon2" ? null : "icon2"
+              );
+            }}
             className={`p-2 rounded-xl ${
-              activePanel === "smartToilet"
+              activeSmartToiletIcon === "icon2"
                 ? "bg-brand-800/80 backdrop-blur-lg text-white"
                 : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
             }`}
@@ -330,7 +365,8 @@ const SponsorBooth = ({ sponsor, onBack }) => {
           className={`
                   grid w-full overflow-hidden transition-all duration-300 ease-in-out
                   ${
-                    activePanel === "smartToilet"
+                    activeSmartToiletIcon === "icon1" ||
+                    activeSmartToiletIcon === "icon2"
                       ? "grid-rows-[1fr] opacity-100"
                       : "grid-rows-[0fr] opacity-0"
                   }`}
@@ -367,7 +403,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
           className={`
                   grid w-full overflow-hidden transition-all duration-300 ease-in-out
                   ${
-                    activePanel === "who"
+                    activePanels.who
                       ? "grid-rows-[1fr] opacity-100 mb-3"
                       : "grid-rows-[0fr] opacity-0"
                   }`}
@@ -388,8 +424,8 @@ const SponsorBooth = ({ sponsor, onBack }) => {
       <div className="md:hidden fixed bottom-4 left-4 right-4 z-20 flex gap-2">
         <button
           onClick={() => handlePanelClick("who")}
-          className={`flex-1 text-left px-3 py-2 rounded-lg transition ${
-            activePanel === "who"
+          className={`flex-1 text-center px-3 py-2 rounded-lg transition ${
+            activePanels.who
               ? "bg-brand-800/80 backdrop-blur-lg text-white"
               : "bg-neutral-800/30 hover:bg-neutral-950/30 text-white"
           }`}
@@ -398,14 +434,14 @@ const SponsorBooth = ({ sponsor, onBack }) => {
         </button>
         <button
           onClick={() => handlePanelClick("contact")}
-          className="flex-1 text-left px-3 py-2 rounded-lg transition bg-neutral-800/30 hover:bg-neutral-950/30 text-white"
+          className="flex-1 text-center px-3 py-2 rounded-lg transition bg-neutral-800/30 hover:bg-neutral-950/30 text-white"
         >
           Contact us
         </button>
         <button
           onClick={() => handlePanelClick("video")}
-          className={`flex-1 text-left px-3 py-2 rounded-lg transition flex items-center justify-center ${
-            activePanel === "video"
+          className={`px-3 text-left py-2 rounded-lg transition flex items-center justify-center ${
+            activePanels.video
               ? "bg-brand-800/80 backdrop-blur-lg text-white"
               : "bg-neutral-800/30 hover:bg-neutral-950/30 text-white"
           }`}
