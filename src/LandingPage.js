@@ -84,7 +84,7 @@ const LandingPage = ({ onViewChange, onSponsorClick }) => {
   ];
 
   return (
-    <div className="relative w-[200vh] h-screen overflow-y-hidden overflow-x-auto bg-black">
+    <div className="relative w-[200vw] md:w-full h-screen overflow-y-hidden overflow-x-auto md:overflow-x-hidden bg-black">
       <img
         src={toiletBg}
         alt="background"

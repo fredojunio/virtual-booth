@@ -72,7 +72,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
   }, []);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-[200vw] md:w-full h-screen overflow-y-hidden overflow-x-auto md:overflow-x-hidden">
       {/* Full-Screen Booth Photo Background */}
       <img
         src={boothBg}
@@ -119,7 +119,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
         </div>
       </div> */}
 
-      <div className="relative z-10 flex justify-between items-center p-4">
+      <div className="relative z-10 hidden md:flex justify-between items-center p-4">
         <button
           onClick={onBack}
           className="px-4 py-2 bg-neutral-800/30 text-white backdrop-blur-xl rounded-2xl hover:bg-brand-800/80 transition"
@@ -131,6 +131,15 @@ const SponsorBooth = ({ sponsor, onBack }) => {
         <h1 className="text-2xl font-bold text-white hidden md:block">
           {sponsor.name || sponsorContent.name}
         </h1>
+      </div>
+
+      <div className="relative md:hidden z-10 p-4">
+        <button
+          onClick={onBack}
+          className="fixed px-4 py-2 bg-neutral-800/30 text-white backdrop-blur-xl rounded-2xl hover:bg-brand-800/80 transition"
+        >
+          ←
+        </button>
       </div>
 
       {/* Mobile: Hamburger Menu */}
@@ -154,7 +163,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
             />
           </svg>
         </button> */}
-        <div className="z-20 items-end flex flex-col gap-3">
+        <div className="z-20 fixed bottom-4">
           <div className="flex text-xl max-w-min gap-x-2 text-left px-4 py-3 transition bg-neutral-800/30 backdrop-blur-lg rounded-2xl">
             <button
               onClick={() => {
@@ -187,38 +196,38 @@ const SponsorBooth = ({ sponsor, onBack }) => {
               <Icon icon="hugeicons:toilet-01" />
             </button>
           </div>
-          <div
-            className={`
-                  grid w-full overflow-hidden transition-all duration-300 ease-in-out
+        </div>
+        <div
+          className={`
+                  z-30 fixed bottom-20 grid w-full overflow-hidden transition-all duration-300 ease-in-out
                   ${
                     activeSmartToiletIcon === "icon1" ||
                     activeSmartToiletIcon === "icon2"
                       ? "grid-rows-[1fr] opacity-100"
                       : "grid-rows-[0fr] opacity-0"
                   }`}
-          >
-            <div className="overflow-hidden">
-              <div className="overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 text-white bg-opacity-90 backdrop-blur-xl rounded-2xl p-6 max-w-lg w-full shadow-xl">
-                <img
-                  src={sponsorContent.smartToiletInfo.imageUrl}
-                  alt="Smart Toilet Diagram"
-                  className="w-full h-auto rounded-lg mb-3"
-                />
-                <h3 className="font-bold text-lg mb-2">
-                  {sponsorContent.smartToiletInfo.title}
-                </h3>
-                <p className="text-sm mb-3">
-                  {sponsorContent.smartToiletInfo.description}
-                </p>
-                <a
-                  href={sponsorContent.smartToiletInfo.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sky-400 underline text-sm"
-                >
-                  For more info
-                </a>
-              </div>
+        >
+          <div className="overflow-hidden">
+            <div className="overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 text-white bg-opacity-90 backdrop-blur-xl rounded-2xl p-6 max-w-lg w-full shadow-xl">
+              <img
+                src={sponsorContent.smartToiletInfo.imageUrl}
+                alt="Smart Toilet Diagram"
+                className="w-full h-auto rounded-lg mb-3"
+              />
+              <h3 className="font-bold text-lg mb-2">
+                {sponsorContent.smartToiletInfo.title}
+              </h3>
+              <p className="text-sm mb-3">
+                {sponsorContent.smartToiletInfo.description}
+              </p>
+              <a
+                href={sponsorContent.smartToiletInfo.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sky-400 underline text-sm"
+              >
+                For more info
+              </a>
             </div>
           </div>
         </div>
@@ -263,9 +272,9 @@ const SponsorBooth = ({ sponsor, onBack }) => {
       )} */}
 
       {/* Left Sidebar Buttons (Desktop Only) */}
-      <div className="absolute left-4 top-20 flex flex-col z-20 hidden md:flex">
+      <div className="fixed left-4 top-20 flex-col z-20 flex">
         {/* Logo Panel */}
-        <div className="w-2/3 mb-3 bg-neutral-800/30 backdrop-blur-xl bg-opacity-80 rounded-2xl p-6 shadow-lg">
+        <div className="hidden md:block w-2/3 mb-3 bg-neutral-800/30 backdrop-blur-xl bg-opacity-80 rounded-2xl p-6 shadow-lg">
           <img
             src={sponsorContent.logo}
             alt="Company Logo"
@@ -276,7 +285,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
         {/* Action Buttons */}
         <button
           onClick={() => handlePanelClick("who")}
-          className={`mb-3 w-48 text-left px-4 py-3 rounded-2xl transition ${
+          className={`mb-3 w-32 md:w-48 text-left px-4 py-3 rounded-2xl transition ${
             activePanels.who
               ? "bg-brand-800/80 backdrop-blur-lg text-white border border-brand-300"
               : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white"
@@ -296,7 +305,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
         >
           <div className="overflow-hidden">
             <div
-              className={`overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 backdrop-blur-lg text-white bg-opacity-90 p-6 rounded-2xl max-w-lg w-full shadow-xl`}
+              className={`overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 backdrop-blur-lg text-white bg-opacity-90 p-6 rounded-2xl max-w-sm md:max-w-lg w-full shadow-xl`}
             >
               <h2 className="text-lg font-medium mb-3">Who are we?</h2>
               <p className="mb-4">{sponsorContent.whoWeAre}</p>
@@ -309,7 +318,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
 
         <a
           href="http"
-          className="mb-3 w-48 text-left px-4 py-3 rounded-2xl transition
+          className="mb-3 w-32 md:w-48 text-left px-4 py-3 rounded-2xl transition
               bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white"
         >
           Contact Us!
@@ -317,14 +326,22 @@ const SponsorBooth = ({ sponsor, onBack }) => {
 
         <button
           onClick={() => handlePanelClick("video")}
-          className={`w-32 text-left px-3 py-4 rounded-lg transition flex items-center gap-2 ${
+          className={`w-20 md:w-32 text-left px-3 py-4 rounded-lg transition flex items-center gap-2 ${
             activePanels.video
-              ? "bg-brand-800/80 backdrop-blur-lg text-white border border-brand-300"
-              : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white text-4xl"
+              ? "bg-brand-800/80 backdrop-blur-lg text-white border border-brand-300 text-xl md:text-4xl"
+              : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white text-xl md:text-4xl"
           }`}
         >
           <Icon icon="solar:play-bold" className="m-auto" />
         </button>
+      </div>
+
+      <div className="md:hidden top-20 w-[35vw] right-4 fixed mb-3 bg-neutral-800/30 backdrop-blur-xl bg-opacity-80 rounded-2xl p-3 shadow-lg">
+        <img
+          src={sponsorContent.logo}
+          alt="Company Logo"
+          className="h-auto m-auto rounded-lg"
+        />
       </div>
 
       {/* Right Info Panel (Desktop Only) */}
@@ -398,7 +415,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
       </div>
 
       {/* Mobile: Bottom Panel for Buttons */}
-      <div className="md:hidden fixed bottom-20 left-4 right-4 z-20 flex gap-2">
+      {/* <div className="md:hidden fixed bottom-20 left-4 right-4 z-20 flex gap-2">
         <div
           className={`
                   grid w-full overflow-hidden transition-all duration-300 ease-in-out
@@ -448,7 +465,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
         >
           <Icon icon="solar:play-bold" className="m-auto" />
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };
