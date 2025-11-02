@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import LandingPage from "./LandingPage";
-import SponsorBooth from "./SponsorBooth";
+import LandingPage from "./pages/LandingPage";
+import SponsorBooth from "./pages/SponsorBooth";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 

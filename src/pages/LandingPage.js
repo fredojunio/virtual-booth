@@ -1,6 +1,6 @@
 import React from "react";
-import toiletBg from "./assets/3d-toilet-background.jpeg";
-import { SPONSORS } from "./data/sponsors";
+import toiletBg from "../assets/3d-toilet-background.jpeg";
+import { SPONSORS } from "../data/sponsors";
 
 const LandingPage = ({ onSponsorClick }) => {
   const [containerSize, setContainerSize] = React.useState({
