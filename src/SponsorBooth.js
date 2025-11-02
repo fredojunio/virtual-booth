@@ -1,39 +1,165 @@
 import React, { useState, useEffect } from "react";
-import boothBg from "./assets/3d-booth.png";
-import logoSponsor from "./assets/logo.png";
-import detailIcon from "./assets/detail-icon.png";
 import { Icon } from "@iconify/react";
+import { SPONSORS } from "./data/sponsors";
+import { useParams } from "react-router-dom";
 
-const SponsorBooth = ({ sponsor, onBack }) => {
+const LogoPanel = ({ logo }) => (
+  <div>
+    <div className="hidden md:block w-2/3 mb-3 bg-neutral-800/30 backdrop-blur-xl bg-opacity-80 rounded-2xl p-6 shadow-lg">
+      <img src={logo} alt="Company Logo" className="h-auto m-auto rounded-lg" />
+    </div>
+    <div className="md:hidden top-20 w-[35vw] right-4 fixed mb-3 bg-neutral-800/30 backdrop-blur-xl bg-opacity-80 rounded-2xl p-3 shadow-lg">
+      <img src={logo} alt="Company Logo" className="h-auto m-auto rounded-lg" />
+    </div>
+  </div>
+);
+
+const ContactPanel = ({ link }) => (
+  <a
+    href={link}
+    className="mb-3 w-32 md:w-48 text-left px-4 py-3 rounded-2xl transition
+              bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white"
+  >
+    Contact Us!
+  </a>
+);
+
+const VideoButton = ({ isActive, onToggle }) => (
+  <button
+    onClick={onToggle}
+    className={`w-20 md:w-32 text-left px-3 py-4 rounded-lg transition flex items-center gap-2 ${
+      isActive
+        ? "bg-brand-800/80 backdrop-blur-lg text-white border border-brand-300 text-xl md:text-4xl"
+        : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white text-xl md:text-4xl"
+    }`}
+  >
+    <Icon icon="solar:play-bold" className="m-auto" />
+  </button>
+);
+
+const IconPanel = ({ icons, onIconClick, activeIcon }) => {
+  const isPanelOpen = activeIcon !== null;
+  const activeIconData = icons.find((icon) => icon.id === activeIcon);
+
+  return (
+    <div className="absolute right-4 top-20 z-20 items-end hidden md:flex md:flex-col gap-3">
+      <div className="flex text-2xl max-w-min gap-x-2 text-left px-4 py-3 transition bg-neutral-800/30 backdrop-blur-lg rounded-2xl">
+        {icons.map((icon) => (
+          <button
+            key={icon.id}
+            onClick={() => onIconClick(icon.id)}
+            className={`p-2 rounded-xl ${
+              activeIcon === icon.id
+                ? "bg-brand-800/80 backdrop-blur-lg text-white"
+                : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
+            }`}
+          >
+            <Icon icon={icon.icon} />
+          </button>
+        ))}
+      </div>
+      <div
+        className={`
+                  grid w-full overflow-hidden transition-all duration-300 ease-in-out
+                  ${
+                    isPanelOpen
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
+      >
+        <div className="overflow-hidden">
+          <div className="overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 text-white bg-opacity-90 backdrop-blur-xl rounded-2xl p-6 max-w-lg w-full shadow-xl">
+            <img
+              src={activeIconData?.imageUrl}
+              alt="Smart Toilet Diagram"
+              className="w-full h-auto rounded-lg mb-3"
+            />
+            <h3 className="font-bold text-lg mb-2">{activeIconData?.title}</h3>
+            <p className="text-sm mb-3">{activeIconData?.description}</p>
+            <a
+              href={activeIconData?.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sky-400 underline text-sm"
+            >
+              For more info
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+const MobileIconPanel = ({ icons, onIconClick, activeIcon }) => {
+  const isPanelOpen = activeIcon !== null;
+  const activeIconData = icons.find((icon) => icon.id === activeIcon);
+
+  return (
+    <div>
+      <div className="z-20 fixed bottom-4">
+        <div className="flex text-xl max-w-min gap-x-2 text-left px-4 py-3 transition bg-neutral-800/30 backdrop-blur-lg rounded-2xl">
+          {icons.map((icon) => (
+            <button
+              onClick={() => onIconClick(icon.id)}
+              className={`p-2 rounded-xl ${
+                activeIcon === icon.id
+                  ? "bg-brand-800/80 backdrop-blur-lg text-white"
+                  : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
+              }`}
+            >
+              <Icon icon={icon.icon} />
+            </button>
+          ))}
+        </div>
+      </div>
+      <div
+        className={`
+                  z-30 fixed bottom-20 grid w-full overflow-hidden transition-all duration-300 ease-in-out
+                  ${
+                    isPanelOpen
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
+      >
+        <div className="overflow-hidden">
+          <div className="overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 text-white bg-opacity-90 backdrop-blur-xl rounded-2xl p-6 max-w-lg w-full shadow-xl">
+            <img
+              src={activeIconData?.imageUrl}
+              alt="Smart Toilet Diagram"
+              className="w-full h-auto rounded-lg mb-3"
+            />
+            <h3 className="font-bold text-lg mb-2">{activeIconData?.title}</h3>
+            <p className="text-sm mb-3">{activeIconData?.description}</p>
+            <a
+              href={activeIconData?.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sky-400 underline text-sm"
+            >
+              For more info
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const SponsorBooth = ({ onBack }) => {
   const [activePanels, setActivePanels] = useState({
     who: false,
     video: false,
-    smartToilet: false,
+    // smartToilet: false,
   }); // 'who', 'contact', 'video', 'smartToilet'
+  const { id } = useParams();
+  const sponsor = SPONSORS.find((s) => s.id === id);
   const [showVideoModal, setShowVideoModal] = useState(false);
-  const [activeSmartToiletIcon, setActiveSmartToiletIcon] = useState(null); // 'icon1' or 'icon2'
+  const [activeToiletIcon, setActiveToiletIcon] = useState(null); // 'icon1' or 'icon2'
   const [isMenuOpen, setIsMenuOpen] = useState(false); // For mobile hamburger
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Mock content for demo — replace with real data per sponsor
-  const sponsorContent = {
-    name: "XYRESIC CAPITAL",
-    logo: logoSponsor,
-    whoWeAre: `
-      At YY Group Holding, our commitment is to deliver innovative solutions across a broad spectrum of manpower needs. We are dedicated to providing high-quality services that meet our customers' requirements and surpass their expectations. We achieve this by staying at the forefront of industry trends and pushing the boundaries of what's possible.
-    `,
-    contactUs: `
-      Reach out to us via email at info@xyresic.com or call +65 1234 5678. Our team is ready to assist you with any inquiries or partnership opportunities.
-    `,
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Replace with real URL
-    smartToiletInfo: {
-      title: "What is Smart Toilet?",
-      description: `
-        In the context of maintenance, cleaning and upkeeping of toilet/restroom, Smart toilet or instig until univerisma and iner on (os) to constantly monitor the state of the toilet to optimize hygiene, safety, and resource usage.
-      `,
-      imageUrl: detailIcon,
-      link: "https://www.infinergy.com.sg/smart_toilet.htm",
-    },
+  const handleIconClick = (iconId) => {
+    setActiveToiletIcon((prev) => (prev === iconId ? null : iconId));
   };
 
   const handlePanelClick = (panelId) => {
@@ -71,11 +197,19 @@ const SponsorBooth = ({ sponsor, onBack }) => {
     return () => clearTimeout(timer);
   }, []);
 
+  if (!sponsor) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Sponsor not found. <button onClick={onBack}>Go Home</button>
+      </div>
+    );
+  }
+
   return (
     <div className="relative w-[200vw] md:w-full h-screen overflow-y-hidden overflow-x-auto md:overflow-x-hidden">
       {/* Full-Screen Booth Photo Background */}
       <img
-        src={boothBg}
+        src={sponsor.imageUrl}
         alt="Sponsor Booth"
         className="absolute inset-0 w-full h-full object-cover"
       />
@@ -97,7 +231,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
             </div>
             <div className="aspect-video">
               <iframe
-                src={sponsorContent.videoUrl}
+                src={sponsor.videoUrl}
                 title="Company Video"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -129,7 +263,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
 
         {/* Desktop: Show Title */}
         <h1 className="text-2xl font-bold text-white hidden md:block">
-          {sponsor.name || sponsorContent.name}
+          {sponsor.name}
         </h1>
       </div>
 
@@ -163,74 +297,11 @@ const SponsorBooth = ({ sponsor, onBack }) => {
             />
           </svg>
         </button> */}
-        <div className="z-20 fixed bottom-4">
-          <div className="flex text-xl max-w-min gap-x-2 text-left px-4 py-3 transition bg-neutral-800/30 backdrop-blur-lg rounded-2xl">
-            <button
-              onClick={() => {
-                handlePanelClick("smartToilet");
-                setActiveSmartToiletIcon(
-                  activeSmartToiletIcon === "icon1" ? null : "icon1"
-                );
-              }}
-              className={`p-2 rounded-xl ${
-                activeSmartToiletIcon === "icon1"
-                  ? "bg-brand-800/80 backdrop-blur-lg text-white"
-                  : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
-              }`}
-            >
-              <Icon icon="mdi:toilet-paper-outline" />
-            </button>
-            <button
-              onClick={() => {
-                handlePanelClick("smartToilet");
-                setActiveSmartToiletIcon(
-                  activeSmartToiletIcon === "icon2" ? null : "icon2"
-                );
-              }}
-              className={`p-2 rounded-xl ${
-                activeSmartToiletIcon === "icon2"
-                  ? "bg-brand-800/80 backdrop-blur-lg text-white"
-                  : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
-              }`}
-            >
-              <Icon icon="hugeicons:toilet-01" />
-            </button>
-          </div>
-        </div>
-        <div
-          className={`
-                  z-30 fixed bottom-20 grid w-full overflow-hidden transition-all duration-300 ease-in-out
-                  ${
-                    activeSmartToiletIcon === "icon1" ||
-                    activeSmartToiletIcon === "icon2"
-                      ? "grid-rows-[1fr] opacity-100"
-                      : "grid-rows-[0fr] opacity-0"
-                  }`}
-        >
-          <div className="overflow-hidden">
-            <div className="overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 text-white bg-opacity-90 backdrop-blur-xl rounded-2xl p-6 max-w-lg w-full shadow-xl">
-              <img
-                src={sponsorContent.smartToiletInfo.imageUrl}
-                alt="Smart Toilet Diagram"
-                className="w-full h-auto rounded-lg mb-3"
-              />
-              <h3 className="font-bold text-lg mb-2">
-                {sponsorContent.smartToiletInfo.title}
-              </h3>
-              <p className="text-sm mb-3">
-                {sponsorContent.smartToiletInfo.description}
-              </p>
-              <a
-                href={sponsorContent.smartToiletInfo.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sky-400 underline text-sm"
-              >
-                For more info
-              </a>
-            </div>
-          </div>
-        </div>
+        <MobileIconPanel
+          icons={sponsor.points}
+          onIconClick={handleIconClick}
+          activeIcon={activeToiletIcon}
+        />
       </div>
       {/* Mobile Menu Drawer */}
       {/* {isMenuOpen && (
@@ -274,13 +345,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
       {/* Left Sidebar Buttons (Desktop Only) */}
       <div className="fixed left-4 top-20 flex-col z-20 flex">
         {/* Logo Panel */}
-        <div className="hidden md:block w-2/3 mb-3 bg-neutral-800/30 backdrop-blur-xl bg-opacity-80 rounded-2xl p-6 shadow-lg">
-          <img
-            src={sponsorContent.logo}
-            alt="Company Logo"
-            className="h-auto m-auto rounded-lg"
-          />
-        </div>
+        <LogoPanel logo={sponsor.logo} />
 
         {/* Action Buttons */}
         <button
@@ -293,7 +358,6 @@ const SponsorBooth = ({ sponsor, onBack }) => {
         >
           Who are we?
         </button>
-
         <div
           className={`
                   grid w-full overflow-hidden transition-all duration-300 ease-in-out
@@ -308,7 +372,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
               className={`overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 backdrop-blur-lg text-white bg-opacity-90 p-6 rounded-2xl max-w-sm md:max-w-lg w-full shadow-xl`}
             >
               <h2 className="text-lg font-medium mb-3">Who are we?</h2>
-              <p className="mb-4">{sponsorContent.whoWeAre}</p>
+              <p className="mb-4">{sponsor.description}</p>
               <a href="http" className="text-sky-400 underline">
                 Click here to find out more about us!
               </a>
@@ -316,103 +380,22 @@ const SponsorBooth = ({ sponsor, onBack }) => {
           </div>
         </div>
 
-        <a
-          href="http"
-          className="mb-3 w-32 md:w-48 text-left px-4 py-3 rounded-2xl transition
-              bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white"
-        >
-          Contact Us!
-        </a>
+        {/* Contact button */}
+        <ContactPanel link="http" />
 
-        <button
-          onClick={() => handlePanelClick("video")}
-          className={`w-20 md:w-32 text-left px-3 py-4 rounded-lg transition flex items-center gap-2 ${
-            activePanels.video
-              ? "bg-brand-800/80 backdrop-blur-lg text-white border border-brand-300 text-xl md:text-4xl"
-              : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white text-xl md:text-4xl"
-          }`}
-        >
-          <Icon icon="solar:play-bold" className="m-auto" />
-        </button>
-      </div>
-
-      <div className="md:hidden top-20 w-[35vw] right-4 fixed mb-3 bg-neutral-800/30 backdrop-blur-xl bg-opacity-80 rounded-2xl p-3 shadow-lg">
-        <img
-          src={sponsorContent.logo}
-          alt="Company Logo"
-          className="h-auto m-auto rounded-lg"
+        {/* Video button */}
+        <VideoButton
+          isActive={activePanels.video}
+          onToggle={() => handlePanelClick("video")}
         />
       </div>
 
       {/* Right Info Panel (Desktop Only) */}
-      <div className="absolute right-4 top-20 z-20 items-end hidden md:flex md:flex-col gap-3">
-        <div className="flex text-2xl max-w-min gap-x-2 text-left px-4 py-3 transition bg-neutral-800/30 backdrop-blur-lg rounded-2xl">
-          <button
-            onClick={() => {
-              handlePanelClick("smartToilet");
-              setActiveSmartToiletIcon(
-                activeSmartToiletIcon === "icon1" ? null : "icon1"
-              );
-            }}
-            className={`p-2 rounded-xl ${
-              activeSmartToiletIcon === "icon1"
-                ? "bg-brand-800/80 backdrop-blur-lg text-white"
-                : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
-            }`}
-          >
-            <Icon icon="mdi:toilet-paper-outline" />
-          </button>
-          <button
-            onClick={() => {
-              handlePanelClick("smartToilet");
-              setActiveSmartToiletIcon(
-                activeSmartToiletIcon === "icon2" ? null : "icon2"
-              );
-            }}
-            className={`p-2 rounded-xl ${
-              activeSmartToiletIcon === "icon2"
-                ? "bg-brand-800/80 backdrop-blur-lg text-white"
-                : "bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
-            }`}
-          >
-            <Icon icon="hugeicons:toilet-01" />
-          </button>
-        </div>
-        <div
-          className={`
-                  grid w-full overflow-hidden transition-all duration-300 ease-in-out
-                  ${
-                    activeSmartToiletIcon === "icon1" ||
-                    activeSmartToiletIcon === "icon2"
-                      ? "grid-rows-[1fr] opacity-100"
-                      : "grid-rows-[0fr] opacity-0"
-                  }`}
-        >
-          <div className="overflow-hidden">
-            <div className="overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 text-white bg-opacity-90 backdrop-blur-xl rounded-2xl p-6 max-w-lg w-full shadow-xl">
-              <img
-                src={sponsorContent.smartToiletInfo.imageUrl}
-                alt="Smart Toilet Diagram"
-                className="w-full h-auto rounded-lg mb-3"
-              />
-              <h3 className="font-bold text-lg mb-2">
-                {sponsorContent.smartToiletInfo.title}
-              </h3>
-              <p className="text-sm mb-3">
-                {sponsorContent.smartToiletInfo.description}
-              </p>
-              <a
-                href={sponsorContent.smartToiletInfo.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sky-400 underline text-sm"
-              >
-                For more info
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <IconPanel
+        icons={sponsor.points}
+        onIconClick={handleIconClick}
+        activeIcon={activeToiletIcon}
+      />
 
       {/* Mobile: Bottom Panel for Buttons */}
       {/* <div className="md:hidden fixed bottom-20 left-4 right-4 z-20 flex gap-2">
@@ -430,7 +413,7 @@ const SponsorBooth = ({ sponsor, onBack }) => {
               className={`overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 backdrop-blur-lg text-white bg-opacity-90 p-6 rounded-2xl max-w-lg w-full shadow-xl`}
             >
               <h2 className="text-lg font-medium mb-3">Who are we?</h2>
-              <p className="mb-4">{sponsorContent.whoWeAre}</p>
+              <p className="mb-4">{sponsor.whoWeAre}</p>
               <a href="http" className="text-sky-400 underline">
                 Click here to find out more about us!
               </a>

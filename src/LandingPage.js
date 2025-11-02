@@ -1,8 +1,8 @@
 import React from "react";
 import toiletBg from "./assets/3d-toilet-background.jpeg";
-import logoSponsor from "./assets/logo.png";
+import { SPONSORS } from "./data/sponsors";
 
-const LandingPage = ({ onViewChange, onSponsorClick }) => {
+const LandingPage = ({ onSponsorClick }) => {
   const [containerSize, setContainerSize] = React.useState({
     width: 0,
     height: 0,
@@ -49,40 +49,6 @@ const LandingPage = ({ onViewChange, onSponsorClick }) => {
     return { x, y };
   };
 
-  // Define sponsor positions in original image pixels
-  const sponsorPositions = [
-    { id: "gold1", name: "Sponsor Gold 1", tier: "gold", x: 100, y: 700 },
-    { id: "gold1", name: "Sponsor Gold 2", tier: "gold", x: 730, y: 550 },
-    {
-      id: "silver1",
-      name: "Sponsor Silver 1",
-      tier: "silver",
-      x: 940,
-      y: 730,
-    },
-    {
-      id: "silver1",
-      name: "Sponsor Silver 2",
-      tier: "silver",
-      x: 1100,
-      y: 730,
-    },
-    {
-      id: "silver1",
-      name: "Sponsor Silver 3",
-      tier: "silver",
-      x: 1300,
-      y: 580,
-    },
-    {
-      id: "bronze1",
-      name: "Sponsor Bronze 1",
-      tier: "bronze",
-      x: 1680,
-      y: 580,
-    },
-  ];
-
   return (
     <div className="relative w-[200vw] md:w-full h-screen overflow-y-hidden overflow-x-auto md:overflow-x-hidden bg-black">
       <img
@@ -128,7 +94,7 @@ const LandingPage = ({ onViewChange, onSponsorClick }) => {
 
       {/* Sponsor Hotspots */}
       <div className="absolute inset-0 pointer-events-none">
-        {sponsorPositions.map((sponsor) => {
+        {SPONSORS.map((sponsor) => {
           const pos = getHotspotPosition(sponsor.x, sponsor.y);
           if (!pos.x || !pos.y) return null;
 
@@ -150,7 +116,7 @@ const LandingPage = ({ onViewChange, onSponsorClick }) => {
               <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
                 <div className="bg-neutral-800/30 backdrop-blur-xl bg-opacity-90 p-2 rounded-2xl shadow-lg min-w-max">
                   <img
-                    src={logoSponsor}
+                    src={sponsor.logo}
                     alt={sponsor.name}
                     className="h-10 w-auto rounded"
                   />

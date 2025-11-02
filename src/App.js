@@ -1,37 +1,38 @@
 import React, { useState } from "react";
 import LandingPage from "./LandingPage";
 import SponsorBooth from "./SponsorBooth";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function App() {
-  const [currentView, setCurrentView] = useState("landing"); // 'landing', 'about', 'ras', 'donate', 'sponsor', 'booth'
   const [selectedSponsor, setSelectedSponsor] = useState(null);
 
+  const navigate = useNavigate();
   const handleSponsorClick = (sponsor) => {
     setSelectedSponsor(sponsor);
-    setCurrentView("booth");
+    navigate(`/booth/${sponsor.id}`);
   };
 
-  const renderView = () => {
-    switch (currentView) {
-      case "booth":
-        return (
-          <SponsorBooth
-            sponsor={selectedSponsor}
-            onBack={() => setCurrentView("landing")}
-          />
-        );
-
-      default:
-        return (
-          <LandingPage
-            onViewChange={setCurrentView}
-            onSponsorClick={handleSponsorClick}
-          />
-        );
-    }
+  const handleBack = () => {
+    setSelectedSponsor(null);
+    navigate("/");
   };
 
-  return <div className="min-h-screen bg-gray-50">{renderView()}</div>;
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Routes>
+        <Route
+          path="/"
+          element={<LandingPage onSponsorClick={handleSponsorClick} />}
+        />
+        <Route
+          path="/booth/:id"
+          element={<SponsorBooth onBack={handleBack} />}
+        />
+        <Route path="*" element={<div>Not Found</div>} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;
