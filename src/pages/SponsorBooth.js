@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Icon } from "@iconify/react";
 import { SPONSORS } from "../data/sponsors";
 import { useParams } from "react-router-dom";
+import { TIER_FEATURES } from "../data/sponsors";
 import LogoPanel from "../components/LogoPanel";
 import ContactPanel from "../components/ContactPanel";
 import VideoButton from "../components/VideoButton";
 import IconPanel from "../components/IconPanel";
-import MobileIconPanel from "../components/IconPanel";
+import MobileIconPanel from "../components/MobileIconPanel";
 
 const SponsorBooth = ({ onBack }) => {
   const [activePanels, setActivePanels] = useState({
@@ -20,6 +21,7 @@ const SponsorBooth = ({ onBack }) => {
   const [activeToiletIcon, setActiveToiletIcon] = useState(null); // 'icon1' or 'icon2'
   const [isMenuOpen, setIsMenuOpen] = useState(false); // For mobile hamburger
   const [isLoaded, setIsLoaded] = useState(false);
+  const allowed = TIER_FEATURES[sponsor.tier];
 
   const handleIconClick = (iconId) => {
     setActiveToiletIcon((prev) => (prev === iconId ? null : iconId));
@@ -160,11 +162,13 @@ const SponsorBooth = ({ onBack }) => {
             />
           </svg>
         </button> */}
-        <MobileIconPanel
-          icons={sponsor.points}
-          onIconClick={handleIconClick}
-          activeIcon={activeToiletIcon}
-        />
+        {allowed.includes("icon") && (
+          <MobileIconPanel
+            icons={sponsor.points}
+            onIconClick={handleIconClick}
+            activeIcon={activeToiletIcon}
+          />
+        )}
       </div>
       {/* Mobile Menu Drawer */}
       {/* {isMenuOpen && (
@@ -244,21 +248,25 @@ const SponsorBooth = ({ onBack }) => {
         </div>
 
         {/* Contact button */}
-        <ContactPanel link="http" />
+        {allowed.includes("contact") && <ContactPanel link="http" />}
 
         {/* Video button */}
-        <VideoButton
-          isActive={activePanels.video}
-          onToggle={() => handlePanelClick("video")}
-        />
+        {allowed.includes("video") && (
+          <VideoButton
+            isActive={activePanels.video}
+            onToggle={() => handlePanelClick("video")}
+          />
+        )}
       </div>
 
       {/* Right Info Panel (Desktop Only) */}
-      <IconPanel
-        icons={sponsor.points}
-        onIconClick={handleIconClick}
-        activeIcon={activeToiletIcon}
-      />
+      {allowed.includes("icon") && (
+        <IconPanel
+          icons={sponsor.points}
+          onIconClick={handleIconClick}
+          activeIcon={activeToiletIcon}
+        />
+      )}
 
       {/* Mobile: Bottom Panel for Buttons */}
       {/* <div className="md:hidden fixed bottom-20 left-4 right-4 z-20 flex gap-2">

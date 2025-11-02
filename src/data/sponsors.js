@@ -2,14 +2,14 @@ import logoSponsor from "../assets/sponsors/xyresic/logo.png";
 import background from "../assets/sponsors/xyresic/background.png";
 import detail1 from "../assets/sponsors/xyresic/details/detail1.png";
 
-const TIER_FEATURES = {
+export const TIER_FEATURES = {
   bronze: ["who"],
-  silver: ["who", "contact", "video", "smartToilet"],
+  silver: ["who", "contact", "video", "icon"],
   gold: [
     "who",
     "contact",
     "video",
-    "smartToilet",
+    "icon",
     "journey",
     "insight",
     "contribution",

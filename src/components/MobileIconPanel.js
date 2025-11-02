@@ -54,3 +54,5 @@ const MobileIconPanel = ({ icons, onIconClick, activeIcon }) => {
     </div>
   );
 };
+
+export default MobileIconPanel;
