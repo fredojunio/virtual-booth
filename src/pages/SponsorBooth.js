@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Icon } from "@iconify/react";
 import { SPONSORS } from "../data/sponsors";
 import { useParams } from "react-router-dom";
 import { TIER_FEATURES } from "../data/sponsors";
@@ -8,6 +7,8 @@ import ContactPanel from "../components/ContactPanel";
 import VideoButton from "../components/VideoButton";
 import IconPanel from "../components/IconPanel";
 import MobileIconPanel from "../components/MobileIconPanel";
+import AdditionalPanel from "../components/AdditionalPanel";
+import MobileAdditionalPanel from "../components/MobileAdditionalPanel";
 
 const SponsorBooth = ({ onBack }) => {
   const [activePanels, setActivePanels] = useState({
@@ -19,12 +20,16 @@ const SponsorBooth = ({ onBack }) => {
   const sponsor = SPONSORS.find((s) => s.id === id);
   const [showVideoModal, setShowVideoModal] = useState(false);
   const [activeToiletIcon, setActiveToiletIcon] = useState(null); // 'icon1' or 'icon2'
+  const [activeAdditional, setActiveAdditional] = useState(null); // 'icon1' or 'icon2'
   const [isMenuOpen, setIsMenuOpen] = useState(false); // For mobile hamburger
   const [isLoaded, setIsLoaded] = useState(false);
   const allowed = TIER_FEATURES[sponsor.tier];
 
   const handleIconClick = (iconId) => {
     setActiveToiletIcon((prev) => (prev === iconId ? null : iconId));
+  };
+  const handleAdditionalClick = (iconId) => {
+    setActiveAdditional((prev) => (prev === iconId ? null : iconId));
   };
 
   const handlePanelClick = (panelId) => {
@@ -139,6 +144,10 @@ const SponsorBooth = ({ onBack }) => {
         >
           ←
         </button>
+        {/* Desktop: Show Title */}
+        <h1 className="fixed right-4 text-xl font-bold text-white">
+          {sponsor.name}
+        </h1>
       </div>
 
       {/* Mobile: Hamburger Menu */}
@@ -250,6 +259,14 @@ const SponsorBooth = ({ onBack }) => {
         {/* Contact button */}
         {allowed.includes("contact") && <ContactPanel link="http" />}
 
+        {allowed.includes("additional") && (
+          <MobileAdditionalPanel
+            additionals={sponsor.additionals}
+            onToggle={handleAdditionalClick}
+            activePanel={activeAdditional}
+          />
+        )}
+
         {/* Video button */}
         {allowed.includes("video") && (
           <VideoButton
@@ -265,6 +282,15 @@ const SponsorBooth = ({ onBack }) => {
           icons={sponsor.points}
           onIconClick={handleIconClick}
           activeIcon={activeToiletIcon}
+          content={
+            allowed.includes("additional") && (
+              <AdditionalPanel
+                additionals={sponsor.additionals}
+                onToggle={handleAdditionalClick}
+                activePanel={activeAdditional}
+              />
+            )
+          }
         />
       )}
 

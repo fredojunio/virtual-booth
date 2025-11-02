@@ -1,12 +1,12 @@
 import { Icon } from "@iconify/react";
 
-const IconPanel = ({ icons, onIconClick, activeIcon }) => {
+const IconPanel = ({ icons, onIconClick, activeIcon, content }) => {
   const isPanelOpen = activeIcon !== null;
   const activeIconData = icons.find((icon) => icon.id === activeIcon);
 
   return (
-    <div className="absolute right-4 top-20 z-20 items-end hidden md:flex md:flex-col gap-3">
-      <div className="flex text-2xl max-w-min gap-x-2 text-left px-4 py-3 transition bg-neutral-800/30 backdrop-blur-lg rounded-2xl">
+    <div className="absolute right-4 top-20 z-20 items-end hidden md:flex md:flex-col">
+      <div className="mb-3 flex text-2xl max-w-min gap-x-2 text-left px-4 py-3 transition bg-neutral-800/30 backdrop-blur-lg rounded-2xl">
         {icons.map((icon) => (
           <button
             key={icon.id}
@@ -26,7 +26,7 @@ const IconPanel = ({ icons, onIconClick, activeIcon }) => {
                   grid w-full overflow-hidden transition-all duration-300 ease-in-out
                   ${
                     isPanelOpen
-                      ? "grid-rows-[1fr] opacity-100"
+                      ? "grid-rows-[1fr] opacity-100 mb-3"
                       : "grid-rows-[0fr] opacity-0"
                   }`}
       >
@@ -50,6 +50,7 @@ const IconPanel = ({ icons, onIconClick, activeIcon }) => {
           </div>
         </div>
       </div>
+      {content}
     </div>
   );
 };
