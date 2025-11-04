@@ -11,6 +11,10 @@ import AdditionalPanel from "../components/AdditionalPanel";
 import MobileAdditionalPanel from "../components/MobileAdditionalPanel";
 
 const SponsorBooth = ({ onBack }) => {
+  const [containerSize, setContainerSize] = React.useState({
+    width: 0,
+    height: 0,
+  });
   const [activePanels, setActivePanels] = useState({
     who: false,
     video: false,
@@ -24,6 +28,7 @@ const SponsorBooth = ({ onBack }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // For mobile hamburger
   const [isLoaded, setIsLoaded] = useState(false);
   const allowed = TIER_FEATURES[sponsor.tier];
+  const [scrollContainer, setScrollContainer] = React.useState(null);
 
   const handleIconClick = (iconId) => {
     setActiveToiletIcon((prev) => (prev === iconId ? null : iconId));
@@ -42,6 +47,16 @@ const SponsorBooth = ({ onBack }) => {
       }));
     }
   };
+
+  useEffect(() => {
+    const scrollEl = document.querySelector(".scroll-wrapper");
+    if (scrollEl) {
+      setScrollContainer(scrollEl);
+      // Center the scroll horizontally
+      const scrollLeft = (scrollEl.scrollWidth - scrollEl.clientWidth) / 2;
+      scrollEl.scrollLeft = scrollLeft;
+    }
+  }, [containerSize.width]);
 
   // Close panels when screen resizes to mobile
   useEffect(() => {
@@ -76,45 +91,57 @@ const SponsorBooth = ({ onBack }) => {
   }
 
   return (
-    <div className="relative w-[200vw] md:w-full h-screen overflow-y-hidden overflow-x-auto md:overflow-x-hidden">
-      {/* Full-Screen Booth Photo Background */}
-      <img
+    <div className="relative h-screen overflow-hidden bg-black">
+      {/* Scroll Wrapper - allows horizontal scrolling */}
+      <div
+        className="scroll-wrapper h-full w-full overflow-x-auto overflow-y-hidden scroll-smooth"
+        style={{ scrollBehavior: "smooth" }}
+      >
+        {/* Inner container that's wider than viewport */}
+        <div className="relative min-w-max h-full">
+          {/* Full-Screen Booth Photo Background */}
+          {/* <img
         src={sponsor.imageUrl}
         alt="Sponsor Booth"
         className="absolute inset-0 w-full h-full object-cover"
-      />
+      /> */}
+          <img
+            src={sponsor.imageUrl}
+            alt="background"
+            className="h-full object-cover pointer-events-none select-none landing-container"
+          />
 
-      {/* Overlay for readability */}
-      <div className="absolute inset-0 bg-black bg-opacity-30"></div>
-      {/* Video Modal */}
-      {showVideoModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-          <div className="bg-neutral-800/30 backdrop-blur-lg rounded-2xl p-4 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-end items-center mb-4">
-              {/* <h2 className="text-xl font-bold">Company Video</h2> */}
-              <button
-                onClick={() => setShowVideoModal(false)}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                ✕
-              </button>
+          {/* Overlay for readability */}
+          <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+          {/* Video Modal */}
+          {showVideoModal && (
+            <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+              <div className="bg-neutral-800/30 backdrop-blur-lg rounded-2xl p-4 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div className="flex justify-end items-center mb-4">
+                  {/* <h2 className="text-xl font-bold">Company Video</h2> */}
+                  <button
+                    onClick={() => setShowVideoModal(false)}
+                    className="text-gray-500 hover:text-gray-700"
+                  >
+                    ✕
+                  </button>
+                </div>
+                <div className="aspect-video">
+                  <iframe
+                    src={sponsor.videoUrl}
+                    title="Company Video"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full rounded-lg"
+                  ></iframe>
+                </div>
+              </div>
             </div>
-            <div className="aspect-video">
-              <iframe
-                src={sponsor.videoUrl}
-                title="Company Video"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full rounded-lg"
-              ></iframe>
-            </div>
-          </div>
-        </div>
-      )}
+          )}
 
-      {/* Animated Content Wrapper */}
-      {/* <div
+          {/* Animated Content Wrapper */}
+          {/* <div
         className={`relative h-full w-full z-10 transition-opacity ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
@@ -123,36 +150,36 @@ const SponsorBooth = ({ onBack }) => {
         </div>
       </div> */}
 
-      <div className="relative z-10 hidden md:flex justify-between items-center p-4">
-        <button
-          onClick={onBack}
-          className="px-4 py-2 bg-neutral-800/30 text-white backdrop-blur-xl rounded-2xl hover:bg-brand-800/80 transition"
-        >
-          ←
-        </button>
+          <div className="relative z-10 hidden md:flex justify-between items-center p-4">
+            <button
+              onClick={onBack}
+              className="px-4 py-2 bg-neutral-800/30 text-white backdrop-blur-xl rounded-2xl hover:bg-brand-800/80 transition"
+            >
+              ←
+            </button>
 
-        {/* Desktop: Show Title */}
-        <h1 className="text-2xl font-bold text-white hidden md:block">
-          {sponsor.name}
-        </h1>
-      </div>
+            {/* Desktop: Show Title */}
+            <h1 className="text-2xl font-bold text-white hidden md:block">
+              {sponsor.name}
+            </h1>
+          </div>
 
-      <div className="relative md:hidden z-10 p-4">
-        <button
-          onClick={onBack}
-          className="fixed px-4 py-2 bg-neutral-800/30 text-white backdrop-blur-xl rounded-2xl hover:bg-brand-800/80 transition"
-        >
-          ←
-        </button>
-        {/* Desktop: Show Title */}
-        <h1 className="fixed right-4 text-xl font-bold text-white">
-          {sponsor.name}
-        </h1>
-      </div>
+          <div className="relative md:hidden z-10 p-4">
+            <button
+              onClick={onBack}
+              className="fixed px-4 py-2 bg-neutral-800/30 text-white backdrop-blur-xl rounded-2xl hover:bg-brand-800/80 transition"
+            >
+              ←
+            </button>
+            {/* Desktop: Show Title */}
+            <h1 className="fixed right-4 text-xl font-bold text-white">
+              {sponsor.name}
+            </h1>
+          </div>
 
-      {/* Mobile: Hamburger Menu */}
-      <div className="md:hidden flex gap-2 mx-4">
-        {/* <button
+          {/* Mobile: Hamburger Menu */}
+          <div className="md:hidden flex gap-2 mx-4">
+            {/* <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="max-h-min max-w-min p-2 bg-gray-200 bg-opacity-80 backdrop-blur-md rounded-full hover:bg-gray-300 transition"
         >
@@ -171,16 +198,16 @@ const SponsorBooth = ({ onBack }) => {
             />
           </svg>
         </button> */}
-        {allowed.includes("icon") && (
-          <MobileIconPanel
-            icons={sponsor.points}
-            onIconClick={handleIconClick}
-            activeIcon={activeToiletIcon}
-          />
-        )}
-      </div>
-      {/* Mobile Menu Drawer */}
-      {/* {isMenuOpen && (
+            {allowed.includes("icon") && (
+              <MobileIconPanel
+                icons={sponsor.points}
+                onIconClick={handleIconClick}
+                activeIcon={activeToiletIcon}
+              />
+            )}
+          </div>
+          {/* Mobile Menu Drawer */}
+          {/* {isMenuOpen && (
         <div className="fixed top-16 left-0 right-0 bg-black bg-opacity-90 z-50 p-4 md:hidden">
           <button
             onClick={() => setIsMenuOpen(false)}
@@ -218,84 +245,84 @@ const SponsorBooth = ({ onBack }) => {
         </div>
       )} */}
 
-      {/* Left Sidebar Buttons (Desktop Only) */}
-      <div className="fixed left-4 top-20 flex-col z-20 flex">
-        {/* Logo Panel */}
-        <LogoPanel logo={sponsor.logo} />
+          {/* Left Sidebar Buttons (Desktop Only) */}
+          <div className="fixed left-4 top-20 flex-col z-20 flex">
+            {/* Logo Panel */}
+            <LogoPanel logo={sponsor.logo} />
 
-        {/* Action Buttons */}
-        <button
-          onClick={() => handlePanelClick("who")}
-          className={`mb-3 w-32 md:w-48 text-left px-4 py-3 rounded-2xl transition ${
-            activePanels.who
-              ? "bg-brand-800/80 backdrop-blur-lg text-white border border-brand-300"
-              : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white"
-          }`}
-        >
-          Who are we?
-        </button>
-        <div
-          className={`
+            {/* Action Buttons */}
+            <button
+              onClick={() => handlePanelClick("who")}
+              className={`mb-3 w-32 md:w-48 text-left px-4 py-3 rounded-2xl transition ${
+                activePanels.who
+                  ? "bg-brand-800/80 backdrop-blur-lg text-white border border-brand-300"
+                  : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white"
+              }`}
+            >
+              Who are we?
+            </button>
+            <div
+              className={`
                   grid w-full overflow-hidden transition-all duration-300 ease-in-out
                   ${
                     activePanels.who
                       ? "grid-rows-[1fr] opacity-100 mb-3"
                       : "grid-rows-[0fr] opacity-0"
                   }`}
-        >
-          <div className="overflow-hidden">
-            <div
-              className={`overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 backdrop-blur-lg text-white bg-opacity-90 p-6 rounded-2xl max-w-sm md:max-w-lg w-full shadow-xl`}
             >
-              <h2 className="text-lg font-medium mb-3">Who are we?</h2>
-              <p className="mb-4">{sponsor.description}</p>
-              <a href="http" className="text-sky-400 underline">
-                Click here to find out more about us!
-              </a>
+              <div className="overflow-hidden">
+                <div
+                  className={`overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 backdrop-blur-lg text-white bg-opacity-90 p-6 rounded-2xl max-w-sm md:max-w-lg w-full shadow-xl`}
+                >
+                  <h2 className="text-lg font-medium mb-3">Who are we?</h2>
+                  <p className="mb-4">{sponsor.description}</p>
+                  <a href="http" className="text-sky-400 underline">
+                    Click here to find out more about us!
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        {/* Contact button */}
-        {allowed.includes("contact") && <ContactPanel link="http" />}
+            {/* Contact button */}
+            {allowed.includes("contact") && <ContactPanel link="http" />}
 
-        {allowed.includes("additional") && (
-          <MobileAdditionalPanel
-            additionals={sponsor.additionals}
-            onToggle={handleAdditionalClick}
-            activePanel={activeAdditional}
-          />
-        )}
-
-        {/* Video button */}
-        {allowed.includes("video") && (
-          <VideoButton
-            isActive={activePanels.video}
-            onToggle={() => handlePanelClick("video")}
-          />
-        )}
-      </div>
-
-      {/* Right Info Panel (Desktop Only) */}
-      {allowed.includes("icon") && (
-        <IconPanel
-          icons={sponsor.points}
-          onIconClick={handleIconClick}
-          activeIcon={activeToiletIcon}
-          content={
-            allowed.includes("additional") && (
-              <AdditionalPanel
+            {allowed.includes("additional") && (
+              <MobileAdditionalPanel
                 additionals={sponsor.additionals}
                 onToggle={handleAdditionalClick}
                 activePanel={activeAdditional}
               />
-            )
-          }
-        />
-      )}
+            )}
 
-      {/* Mobile: Bottom Panel for Buttons */}
-      {/* <div className="md:hidden fixed bottom-20 left-4 right-4 z-20 flex gap-2">
+            {/* Video button */}
+            {allowed.includes("video") && (
+              <VideoButton
+                isActive={activePanels.video}
+                onToggle={() => handlePanelClick("video")}
+              />
+            )}
+          </div>
+
+          {/* Right Info Panel (Desktop Only) */}
+          {allowed.includes("icon") && (
+            <IconPanel
+              icons={sponsor.points}
+              onIconClick={handleIconClick}
+              activeIcon={activeToiletIcon}
+              content={
+                allowed.includes("additional") && (
+                  <AdditionalPanel
+                    additionals={sponsor.additionals}
+                    onToggle={handleAdditionalClick}
+                    activePanel={activeAdditional}
+                  />
+                )
+              }
+            />
+          )}
+
+          {/* Mobile: Bottom Panel for Buttons */}
+          {/* <div className="md:hidden fixed bottom-20 left-4 right-4 z-20 flex gap-2">
         <div
           className={`
                   grid w-full overflow-hidden transition-all duration-300 ease-in-out
@@ -346,6 +373,8 @@ const SponsorBooth = ({ onBack }) => {
           <Icon icon="solar:play-bold" className="m-auto" />
         </button>
       </div> */}
+        </div>
+      </div>
     </div>
   );
 };
