@@ -97,11 +97,11 @@ const LandingPage = ({ onSponsorClick }) => {
             />
             <span>Menu</span>
           </button>
-          <h1 className="fixed top-10 left-1/2 transform -translate-x-1/2 text-white font-extrabold backdrop-blur-xl rounded-2xl p-5 text-center text-4xl mb-3">
+          <h1 className="fixed top-10 left-1/2 transform -translate-x-1/2 text-white font-extrabold backdrop-blur-xl rounded-2xl p-5 text-center text-xl md:text-4xl mb-3">
             World Toilet Day <br /> Loo Awards 2025
           </h1>
           <div
-            className={`text-left fixed left-4 right-auto top-24 flex-col z-20 items-start items-center flex bg-neutral-800/30 backdrop-blur-lg rounded-3xl ${
+            className={`text-left fixed left-4 right-auto top-24 flex-col z-20 items-start flex bg-neutral-800/30 backdrop-blur-lg rounded-3xl ${
               isExpanded ? "p-5" : "p-0"
             }`}
           >
