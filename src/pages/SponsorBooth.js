@@ -108,7 +108,7 @@ const SponsorBooth = ({ onBack }) => {
           <img
             src={sponsor.imageUrl}
             alt="background"
-            className="h-full object-cover pointer-events-none select-none landing-container"
+            className="h-full w-full object-cover pointer-events-none select-none landing-container"
           />
 
           {/* Overlay for readability */}
@@ -150,7 +150,7 @@ const SponsorBooth = ({ onBack }) => {
         </div>
       </div> */}
 
-          <div className="relative z-10 hidden md:flex justify-between items-center p-4">
+          <div className="absolute top-4 z-10 hidden md:flex justify-between w-full p-4">
             <button
               onClick={onBack}
               className="px-4 py-2 bg-neutral-800/30 text-white backdrop-blur-xl rounded-2xl hover:bg-brand-800/80 transition"
@@ -272,10 +272,22 @@ const SponsorBooth = ({ onBack }) => {
             >
               <div className="overflow-hidden">
                 <div
-                  className={`overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 backdrop-blur-lg text-white bg-opacity-90 p-6 rounded-2xl max-w-sm md:max-w-lg w-full shadow-xl`}
+                  className={`overflow-auto h-64 transition-all duration-300 ease-in-out bg-neutral-800/30 backdrop-blur-lg text-white bg-opacity-90 p-6 rounded-2xl max-w-sm md:max-w-lg w-full shadow-xl`}
                 >
-                  <h2 className="text-lg font-medium mb-3">Who are we?</h2>
-                  <p className="mb-4">{sponsor.description}</p>
+                  {/* <h2 className="text-lg font-medium mb-3">Who are we?</h2> */}
+                  {/* <p className="mb-4">{sponsor.description}</p> */}
+                  {sponsor.description.map((paragraph, index) => (
+                    <p
+                      key={index}
+                      className={
+                        index !== sponsor.description.length - 1
+                          ? "mb-4"
+                          : "mb-4"
+                      }
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
                   <a href="http" className="text-sky-400 underline">
                     Click here to find out more about us!
                   </a>

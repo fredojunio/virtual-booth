@@ -1,5 +1,5 @@
 import React from "react";
-import toiletBg from "../assets/3d-toilet-background.jpeg";
+import toiletBg from "../assets/background.png";
 import { SPONSORS } from "../data/sponsors";
 import { Icon } from "@iconify/react";
 
@@ -9,7 +9,7 @@ const LandingPage = ({ onSponsorClick }) => {
     height: 0,
   });
   const [scrollContainer, setScrollContainer] = React.useState(null);
-  const [isExpanded, setIsExpanded] = React.useState(true);
+  const [isExpanded, setIsExpanded] = React.useState(false);
   const IMAGE_WIDTH = 1920;
   const IMAGE_HEIGHT = 1080;
 
@@ -83,10 +83,28 @@ const LandingPage = ({ onSponsorClick }) => {
           />
 
           {/* Left Sidebar Buttons (Desktop Only) */}
-          <div className="left-1/2 transform -translate-x-1/2 md:translate-x-0 text-center md:text-left fixed md:left-4 right-auto top-10 flex-col z-20 md:items-start items-center flex bg-neutral-800/30 backdrop-blur-lg rounded-3xl p-5">
-            <h1 className="text-white font-medium text-4xl mb-3">
-              World Toilet Day <br /> Loo Awards 2025
-            </h1>
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className={`fixed left-4 top-10 mb-3 text-left px-4 py-3 rounded-2xl transition ${
+              isExpanded
+                ? "bg-brand-800/80 backdrop-blur-lg text-white border border-brand-300"
+                : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white"
+            }`}
+          >
+            <Icon
+              icon={isExpanded ? "mdi:hamburger-close" : "mdi:hamburger-open"}
+              className="text-white text-2xl float-left"
+            />
+            <span>Menu</span>
+          </button>
+          <h1 className="fixed top-10 left-1/2 transform -translate-x-1/2 text-white font-extrabold backdrop-blur-xl rounded-2xl p-5 text-center text-4xl mb-3">
+            World Toilet Day <br /> Loo Awards 2025
+          </h1>
+          <div
+            className={`text-left fixed left-4 right-auto top-24 flex-col z-20 items-start items-center flex bg-neutral-800/30 backdrop-blur-lg rounded-3xl ${
+              isExpanded ? "p-5" : "p-0"
+            }`}
+          >
             <div
               className={`${
                 isExpanded ? "block" : "hidden"
@@ -114,17 +132,6 @@ const LandingPage = ({ onSponsorClick }) => {
                 Donate towards the cause
               </a>
             </div>
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="md:hidden"
-            >
-              <Icon
-                icon={
-                  isExpanded ? "iconamoon:arrow-up-2" : "iconamoon:arrow-down-2"
-                }
-                className="text-white text-2xl"
-              />
-            </button>
           </div>
 
           {/* Sponsor Hotspots */}
@@ -153,7 +160,7 @@ const LandingPage = ({ onSponsorClick }) => {
                       <img
                         src={sponsor.logo}
                         alt={sponsor.name}
-                        className="h-10 w-auto rounded"
+                        className="h-16 w-auto rounded"
                       />
                       {/* <p className="text-xs mt-1 text-gray-800">{sponsor.name}</p> */}
                     </div>
