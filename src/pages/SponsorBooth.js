@@ -23,6 +23,7 @@ const SponsorBooth = ({ onBack }) => {
   const { id } = useParams();
   const sponsor = SPONSORS.find((s) => s.id === id);
   const [showVideoModal, setShowVideoModal] = useState(false);
+  const [showWhoModal, setShowWhoModal] = useState(false);
   const [activeToiletIcon, setActiveToiletIcon] = useState(null); // 'icon1' or 'icon2'
   const [activeAdditional, setActiveAdditional] = useState(null); // 'icon1' or 'icon2'
   const [isMenuOpen, setIsMenuOpen] = useState(false); // For mobile hamburger
@@ -41,6 +42,9 @@ const SponsorBooth = ({ onBack }) => {
     if (panelId === "video") {
       setShowVideoModal(true);
     } else {
+      if (panelId === "who") {
+        setShowWhoModal(!showWhoModal);
+      }
       setActivePanels((prev) => ({
         ...prev,
         [panelId]: !prev[panelId],
@@ -100,11 +104,6 @@ const SponsorBooth = ({ onBack }) => {
         {/* Inner container that's wider than viewport */}
         <div className="relative min-w-max h-full">
           {/* Full-Screen Booth Photo Background */}
-          {/* <img
-        src={sponsor.imageUrl}
-        alt="Sponsor Booth"
-        className="absolute inset-0 w-full h-full object-cover"
-      /> */}
           <img
             src={sponsor.imageUrl}
             alt="background"
@@ -135,6 +134,43 @@ const SponsorBooth = ({ onBack }) => {
                     allowFullScreen
                     className="w-full h-full rounded-lg"
                   ></iframe>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {showWhoModal && (
+            <div className="flex fixed inset-0 bg-black bg-opacity-75 md:hidden items-center justify-center z-50 p-4">
+              <div className="bg-neutral-800/30 backdrop-blur-lg rounded-2xl p-4 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div className="flex justify-end items-center mb-4">
+                  {/* <h2 className="text-xl font-bold">Company Video</h2> */}
+                  <button
+                    onClick={() => handlePanelClick("who")}
+                    className="text-gray-500 hover:text-gray-700"
+                  >
+                    ✕
+                  </button>
+                </div>
+                <div
+                  className={`overflow-auto transition-all text-white w-full`}
+                >
+                  {/* <h2 className="text-lg font-medium mb-3">Who are we?</h2> */}
+                  {/* <p className="mb-4">{sponsor.description}</p> */}
+                  {sponsor.description.map((paragraph, index) => (
+                    <p
+                      key={index}
+                      className={
+                        index !== sponsor.description.length - 1
+                          ? "mb-4"
+                          : "mb-4"
+                      }
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                  <a href="http" className="text-sky-400 underline">
+                    Click here to find out more about us!
+                  </a>
                 </div>
               </div>
             </div>
@@ -262,8 +298,7 @@ const SponsorBooth = ({ onBack }) => {
               Who are we?
             </button>
             <div
-              className={`
-                  grid w-full overflow-hidden transition-all duration-300 ease-in-out
+              className={`hidden md:grid w-full overflow-hidden transition-all duration-300 ease-in-out
                   ${
                     activePanels.who
                       ? "grid-rows-[1fr] opacity-100 mb-3"

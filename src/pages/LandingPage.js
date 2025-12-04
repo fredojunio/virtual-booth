@@ -95,9 +95,9 @@ const LandingPage = ({ onSponsorClick }) => {
               icon={isExpanded ? "mdi:hamburger-close" : "mdi:hamburger-open"}
               className="text-white text-2xl float-left"
             />
-            <span>Menu</span>
+            <span className="hidden md:flex">Menu</span>
           </button>
-          <h1 className="fixed top-10 left-1/2 transform -translate-x-1/2 text-white font-extrabold backdrop-blur-xl rounded-2xl p-5 text-center text-xl md:text-4xl mb-3">
+          <h1 className="fixed top-10 left-1/2 transform -translate-x-1/2 text-white font-extrabold backdrop-blur-xl rounded-2xl p-5 text-center text-md md:text-4xl mb-3">
             World Toilet Day <br /> Loo Awards 2025
           </h1>
           <div
