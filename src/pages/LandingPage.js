@@ -8,38 +8,69 @@ const LandingPage = ({ onSponsorClick }) => {
     width: 0,
     height: 0,
   });
+  const imageRef = React.useRef(null);
   const [scrollContainer, setScrollContainer] = React.useState(null);
   const [isExpanded, setIsExpanded] = React.useState(false);
   const IMAGE_WIDTH = 1920;
   const IMAGE_HEIGHT = 1080;
 
-  React.useEffect(() => {
-    const scrollEl = document.querySelector(".scroll-wrapper");
-    if (scrollEl) {
-      setScrollContainer(scrollEl);
-      // Center the scroll horizontally
-      const scrollLeft = (scrollEl.scrollWidth - scrollEl.clientWidth) / 2;
-      scrollEl.scrollLeft = scrollLeft;
+  // Update size using the image ref (called on load and by ResizeObserver)
+  const updateSize = React.useCallback(() => {
+    const el = imageRef.current;
+    if (el) {
+      setContainerSize({
+        width: el.clientWidth,
+        height: el.clientHeight,
+      });
     }
+  }, []);
 
-    const updateSize = () => {
-      const el = document.querySelector(".landing-container");
-      if (el) {
-        setContainerSize({
-          width: el.offsetWidth,
-          height: el.offsetHeight,
+  // Center scroll once we have a valid container size
+  React.useEffect(() => {
+    if (containerSize.width > 0 && containerSize.height > 0) {
+      const scrollEl = document.querySelector(".scroll-wrapper");
+      if (scrollEl) {
+        setScrollContainer(scrollEl);
+        // wait for layout, then center
+        requestAnimationFrame(() => {
+          const scrollLeft = (scrollEl.scrollWidth - scrollEl.clientWidth) / 2;
+          scrollEl.scrollLeft = scrollLeft;
         });
       }
-    };
+    }
+  }, [containerSize]);
 
+  // Observe image size changes so hotspots update reliably
+  React.useEffect(() => {
+    const img = imageRef.current;
+    if (!img) return;
+
+    // call once in case image already loaded
     updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  }, [containerSize.width]);
+
+    let ro;
+    if (window.ResizeObserver) {
+      ro = new ResizeObserver(() => updateSize());
+      ro.observe(img);
+    } else {
+      // fallback
+      window.addEventListener("resize", updateSize);
+    }
+
+    return () => {
+      if (ro && img) ro.unobserve(img);
+      if (!window.ResizeObserver)
+        window.removeEventListener("resize", updateSize);
+    };
+  }, [updateSize]);
 
   // Calculate scaled position for a hotspot
   const getHotspotPosition = (originalX, originalY) => {
     const { width: containerWidth, height: containerHeight } = containerSize;
+
+    if (!containerWidth || !containerHeight) {
+      return { x: NaN, y: NaN };
+    }
 
     // Calculate scale factor (maintain aspect ratio)
     const scaleX = containerWidth / IMAGE_WIDTH;
@@ -59,23 +90,6 @@ const LandingPage = ({ onSponsorClick }) => {
     return { x, y };
   };
 
-  // Get container size on mount and resize
-  // React.useEffect(() => {
-  //   const updateSize = () => {
-  //     const el = document.querySelector(".landing-container");
-  //     if (el) {
-  //       setContainerSize({
-  //         width: el.offsetWidth,
-  //         height: el.offsetHeight,
-  //       });
-  //     }
-  //   };
-
-  //   updateSize();
-  //   window.addEventListener("resize", updateSize);
-  //   return () => window.removeEventListener("resize", updateSize);
-  // }, []);
-
   return (
     <div className="relative h-screen overflow-hidden bg-black">
       {/* Scroll Wrapper - allows horizontal scrolling */}
@@ -85,14 +99,11 @@ const LandingPage = ({ onSponsorClick }) => {
       >
         {/* Inner container that's wider than viewport */}
         <div className="relative min-w-max h-full">
-          {/* <img
-            src={toiletBg}
-            alt="background"
-            className="absolute top-0 left-0 h-full w-full object-cover pointer-events-none select-none landing-container"
-          /> */}
           <img
+            ref={imageRef}
             src={toiletBg}
             alt="background"
+            onLoad={updateSize}
             className="h-full object-cover pointer-events-none select-none landing-container"
           />
 
@@ -152,7 +163,14 @@ const LandingPage = ({ onSponsorClick }) => {
           <div className="absolute inset-0 pointer-events-none">
             {SPONSORS.map((sponsor) => {
               const pos = getHotspotPosition(sponsor.x, sponsor.y);
-              if (!pos.x || !pos.y) return null;
+              // don't filter out zero - only skip if not a number
+              if (
+                typeof pos.x !== "number" ||
+                typeof pos.y !== "number" ||
+                Number.isNaN(pos.x) ||
+                Number.isNaN(pos.y)
+              )
+                return null;
 
               return (
                 <div
@@ -176,7 +194,6 @@ const LandingPage = ({ onSponsorClick }) => {
                         alt={sponsor.name}
                         className="h-16 w-auto rounded"
                       />
-                      {/* <p className="text-xs mt-1 text-gray-800">{sponsor.name}</p> */}
                     </div>
                   </div>
                 </div>
@@ -185,11 +202,6 @@ const LandingPage = ({ onSponsorClick }) => {
           </div>
         </div>
       </div>
-
-      {/* Footer Note */}
-      {/* <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-center px-4 py-2 bg-black bg-opacity-50 rounded-full text-sm font-medium">
-        Each star represents a virtual booth led by an individual sponsor.
-      </div> */}
     </div>
   );
 };
