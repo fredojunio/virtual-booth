@@ -107,7 +107,7 @@ const SponsorBooth = ({ onBack }) => {
           <img
             src={sponsor.imageUrl}
             alt="background"
-            className="h-full w-full object-cover pointer-events-none select-none landing-container"
+            className="h-screen w-full object-cover pointer-events-none select-none landing-container"
           />
 
           {/* Overlay for readability */}
