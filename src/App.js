@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LandingPage from "./pages/LandingPage";
 import SponsorBooth from "./pages/SponsorBooth";
+import EventPage from "./pages/EventPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -19,12 +20,13 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <Routes>
         <Route
           path="/"
           element={<LandingPage onSponsorClick={handleSponsorClick} />}
         />
+        <Route path="/event" element={<EventPage />} />
         <Route
           path="/booth/:id"
           element={<SponsorBooth onBack={handleBack} />}

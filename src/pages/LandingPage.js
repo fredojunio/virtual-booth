@@ -113,7 +113,7 @@ const LandingPage = ({ onSponsorClick }) => {
             className={`fixed left-4 top-10 mb-3 text-left px-4 py-3 rounded-2xl transition ${
               isExpanded
                 ? "bg-brand-800/80 backdrop-blur-lg text-white border border-brand-300"
-                : "bg-neutral-800/30 hover:bg-neutral-950/40 backdrop-blur-xl text-white"
+                : "backdrop-blur-md bg-white/15 border border-white/30 rounded-2xl hover:bg-white/20 text-white"
             }`}
           >
             <Icon
@@ -126,7 +126,7 @@ const LandingPage = ({ onSponsorClick }) => {
             World Toilet Day <br /> Loo Awards 2025
           </h1>
           <div
-            className={`text-left fixed left-4 right-auto top-24 flex-col z-20 items-start flex bg-neutral-800/30 backdrop-blur-lg rounded-3xl ${
+            className={`text-left fixed left-4 right-auto top-24 flex-col z-20 items-start flex backdrop-blur-md bg-gray-300/15 border border-white/30 rounded-2xl ${
               isExpanded ? "p-5" : "p-0"
             }`}
           >
@@ -137,22 +137,22 @@ const LandingPage = ({ onSponsorClick }) => {
             >
               <a
                 href="https://www.toilet.org.sg/loowards"
-                className="w-72 text-left px-4 py-3 rounded-2xl transition
-                    bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
+                className="w-72 text-left px-4 py-3  
+                    backdrop-blur-md bg-gray-800/15 border border-white/30 rounded-2xl hover:bg-gray-400/20 text-white transition-all duration-300 hover:scale-105"
               >
                 What is the Loo Awards?
               </a>
               <a
                 href="https://www.toilet.org.sg/about"
-                className="w-72 w-scr text-left px-4 py-3 rounded-2xl transition
-                    bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
+                className="w-72 w-scr text-left px-4 py-3 
+                    backdrop-blur-md bg-gray-800/15 border border-white/30 rounded-2xl hover:bg-gray-400/20 text-white transition-all duration-300 hover:scale-105"
               >
                 More about Restroom Association
               </a>
               <a
                 href="https://www.giving.sg/organisation/profile/d11d7604-261a-4581-980b-0b12b75550b0"
-                className="w-72 text-left px-4 py-3 rounded-2xl transition
-                    bg-neutral-700/30 backdrop-blur-xl hover:bg-neutral-800/40 text-white"
+                className="w-72 text-left px-4 py-3 
+                    backdrop-blur-md bg-gray-800/15 border border-white/30 rounded-2xl hover:bg-gray-400/20 text-white transition-all duration-300 hover:scale-105"
               >
                 Donate towards the cause
               </a>
@@ -187,12 +187,12 @@ const LandingPage = ({ onSponsorClick }) => {
                   <div className="animate-pulse hover:animate-none w-full h-full bg-white/80 rounded-full flex items-center justify-center text-xl text-gray-800 border-4 border-neutral-800/30 hover:bg-brand-300 backdrop-blur-lg shadow-lg"></div>
 
                   {/* Tooltip (shows on hover) */}
-                  <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                    <div className="bg-neutral-800/30 backdrop-blur-xl bg-opacity-90 p-2 rounded-2xl shadow-lg min-w-max">
+                  <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none">
+                    <div className="backdrop-blur-md bg-gray-300/15 border border-white/30 rounded-2xl hover:bg-white/20 p-2 min-w-max">
                       <img
                         src={sponsor.logo}
                         alt={sponsor.name}
-                        className="h-16 w-auto rounded"
+                        className="h-16 w-auto rounded duration-300 hover:scale-105"
                       />
                     </div>
                   </div>
