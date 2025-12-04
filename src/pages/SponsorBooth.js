@@ -186,7 +186,7 @@ const SponsorBooth = ({ onBack }) => {
         </div>
       </div> */}
 
-          <div className="absolute top-4 z-10 hidden md:flex justify-between w-full p-4">
+          <div className="fixed top-4 z-10 flex md:justify-between items-center gap-3 w-full p-4">
             <button
               onClick={onBack}
               className="px-4 py-2 bg-neutral-800/30 text-white backdrop-blur-xl rounded-2xl hover:bg-brand-800/80 transition"
@@ -195,20 +195,7 @@ const SponsorBooth = ({ onBack }) => {
             </button>
 
             {/* Desktop: Show Title */}
-            <h1 className="text-2xl font-bold text-white hidden md:block">
-              {sponsor.name}
-            </h1>
-          </div>
-
-          <div className="relative md:hidden z-10 p-4">
-            <button
-              onClick={onBack}
-              className="fixed px-4 py-2 bg-neutral-800/30 text-white backdrop-blur-xl rounded-2xl hover:bg-brand-800/80 transition"
-            >
-              ←
-            </button>
-            {/* Desktop: Show Title */}
-            <h1 className="fixed right-4 text-xl font-bold text-white">
+            <h1 className="text-2xl font-bold text-white block">
               {sponsor.name}
             </h1>
           </div>

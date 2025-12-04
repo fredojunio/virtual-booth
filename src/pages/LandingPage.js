@@ -13,8 +13,15 @@ const LandingPage = ({ onSponsorClick }) => {
   const IMAGE_WIDTH = 1920;
   const IMAGE_HEIGHT = 1080;
 
-  // Get container size on mount and resize
   React.useEffect(() => {
+    const scrollEl = document.querySelector(".scroll-wrapper");
+    if (scrollEl) {
+      setScrollContainer(scrollEl);
+      // Center the scroll horizontally
+      const scrollLeft = (scrollEl.scrollWidth - scrollEl.clientWidth) / 2;
+      scrollEl.scrollLeft = scrollLeft;
+    }
+
     const updateSize = () => {
       const el = document.querySelector(".landing-container");
       if (el) {
@@ -28,16 +35,6 @@ const LandingPage = ({ onSponsorClick }) => {
     updateSize();
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
-  }, []);
-
-  React.useEffect(() => {
-    const scrollEl = document.querySelector(".scroll-wrapper");
-    if (scrollEl) {
-      setScrollContainer(scrollEl);
-      // Center the scroll horizontally
-      const scrollLeft = (scrollEl.scrollWidth - scrollEl.clientWidth) / 2;
-      scrollEl.scrollLeft = scrollLeft;
-    }
   }, [containerSize.width]);
 
   // Calculate scaled position for a hotspot
@@ -61,6 +58,23 @@ const LandingPage = ({ onSponsorClick }) => {
 
     return { x, y };
   };
+
+  // Get container size on mount and resize
+  // React.useEffect(() => {
+  //   const updateSize = () => {
+  //     const el = document.querySelector(".landing-container");
+  //     if (el) {
+  //       setContainerSize({
+  //         width: el.offsetWidth,
+  //         height: el.offsetHeight,
+  //       });
+  //     }
+  //   };
+
+  //   updateSize();
+  //   window.addEventListener("resize", updateSize);
+  //   return () => window.removeEventListener("resize", updateSize);
+  // }, []);
 
   return (
     <div className="relative h-screen overflow-hidden bg-black">
