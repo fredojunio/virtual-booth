@@ -1,9 +1,9 @@
 const LogoPanel = ({ logo }) => (
   <div>
-    <div className="hidden md:block max-w-max mb-3 bg-neutral-800/30 backdrop-blur-xl bg-opacity-80 rounded-2xl p-6 shadow-lg">
-      <img src={logo} alt="Company Logo" className="h-24 m-auto rounded-lg" />
+    <div className="hidden md:block max-w-max mb-3 bg-white/15 border backdrop:blur-xl border-white/30 rounded-2xl text-white p-6 shadow-lg">
+      <img src={logo} alt="Company Logo" className="h-32 m-auto rounded-lg" />
     </div>
-    <div className="md:hidden top-20 max-w-max right-4 fixed mb-3 bg-neutral-800/30 backdrop-blur-xl bg-opacity-80 rounded-2xl p-3 shadow-lg">
+    <div className="md:hidden top-20 max-w-max right-4 fixed mb-3 bg-white/15 backdrop:blur-xl border border-white/30 rounded-2xl text-white p-3 shadow-lg">
       <img src={logo} alt="Company Logo" className="h-14 m-auto rounded-lg" />
     </div>
   </div>

@@ -188,11 +188,11 @@ const LandingPage = ({ onSponsorClick }) => {
 
                   {/* Tooltip (shows on hover) */}
                   <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none">
-                    <div className="backdrop-blur-md bg-gray-300/15 border border-white/30 rounded-2xl hover:bg-white/20 p-2 min-w-max">
+                    <div className="backdrop-blur-md bg-white/20 border border-white/30 rounded-2xl hover:bg-white/20 p-2 min-w-max">
                       <img
                         src={sponsor.logo}
                         alt={sponsor.name}
-                        className="h-16 w-auto rounded duration-300 hover:scale-105"
+                        className="h-28 w-auto rounded duration-300 hover:scale-105"
                       />
                     </div>
                   </div>
