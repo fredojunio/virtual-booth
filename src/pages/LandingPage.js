@@ -108,7 +108,7 @@ const LandingPage = ({ onSponsorClick }) => {
           />
 
           {/* Left Sidebar Buttons (Desktop Only) */}
-          <div className="fixed left-4 top-10 flex flex-col gap-3">
+          <div className="fixed left-4 top-10 flex flex-col gap-3 z-10">
             <button
               onClick={() => setIsExpanded(!isExpanded)}
               className={`text-left px-4 py-3 rounded-2xl transition max-w-max ${
