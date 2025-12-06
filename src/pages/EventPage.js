@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Menu, X, Calendar, Users, Zap, Heart, HelpCircle } from "lucide-react";
+import { Menu, X, Calendar, Users, Zap, Heart, Info } from "lucide-react";
 import rasLogo from "../assets/company/RAS Logo.png";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +13,7 @@ export default function EventLanding() {
     { icon: Users, label: "Speakers & Panelists", id: "speakers" },
     { icon: Zap, label: "Sponsors & Products", id: "sponsors" },
     { icon: Heart, label: "Engagement Groups", id: "engagement" },
-    { icon: HelpCircle, label: "Get Involved", id: "involved" },
+    { icon: Info, label: "About", id: "about" },
   ];
 
   return (
@@ -44,7 +44,7 @@ export default function EventLanding() {
             <div className="hidden lg:flex gap-8">
               {menuItems.map((item) => (
                 <button
-                  onClick={() => navigate("/")}
+                  onClick={() => navigate(`/${item.id}`)}
                   key={item.id}
                   className="text-white/80 hover:text-white text-sm font-medium transition-colors flex items-center gap-2 group"
                 >
@@ -167,9 +167,10 @@ export default function EventLanding() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
           {menuItems.map((item, i) => (
-            <div
+            <button
+              onClick={() => navigate(`/${item.id}`)}
               key={item.id}
-              className="backdrop-blur-xl bg-white/15 border border-white/30 rounded-3xl p-8 hover:bg-white/25 transition-all duration-300 hover:scale-110 cursor-pointer group"
+              className=" text-left backdrop-blur-xl bg-white/15 border border-white/30 rounded-3xl p-8 hover:bg-white/25 transition-all duration-300 hover:scale-110 cursor-pointer group"
             >
               <div className="mb-4 p-4 rounded-full bg-white/20 w-fit group-hover:bg-white/30 transition-colors">
                 <item.icon size={32} className="text-white" />
@@ -184,7 +185,7 @@ export default function EventLanding() {
                 {i === 3 && "Connect with like-minded community members"}
                 {i === 4 && "Find ways to contribute and make a difference"}
               </p>
-            </div>
+            </button>
           ))}
         </div>
       </div>
