@@ -9,7 +9,7 @@ const LandingPage = ({ onSponsorClick }) => {
     height: 0,
   });
   const imageRef = React.useRef(null);
-  const [scrollContainer, setScrollContainer] = React.useState(null);
+  // const [scrollContainer, setScrollContainer] = React.useState(null);
   const [isExpanded, setIsExpanded] = React.useState(false);
   const IMAGE_WIDTH = 1920;
   const IMAGE_HEIGHT = 1080;
@@ -30,7 +30,7 @@ const LandingPage = ({ onSponsorClick }) => {
     if (containerSize.width > 0 && containerSize.height > 0) {
       const scrollEl = document.querySelector(".scroll-wrapper");
       if (scrollEl) {
-        setScrollContainer(scrollEl);
+        // setScrollContainer(scrollEl);
         // wait for layout, then center
         requestAnimationFrame(() => {
           const scrollLeft = (scrollEl.scrollWidth - scrollEl.clientWidth) / 2;
@@ -129,7 +129,7 @@ const LandingPage = ({ onSponsorClick }) => {
                   ${
                     isExpanded
                       ? "grid-rows-[1fr] opacity-100 p-5 mb-3"
-                      : "grid-rows-[0fr] opacity-0"
+                      : "grid-rows-[0fr] opacity-0 pointer-events-none select-none"
                   }`}
             >
               <a

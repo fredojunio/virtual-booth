@@ -186,20 +186,6 @@ const SponsorBooth = ({ onBack }) => {
         </div>
       </div> */}
 
-          <div className="fixed top-2 z-10 flex md:justify-between items-center gap-3 w-full p-4">
-            <button
-              onClick={onBack}
-              className="px-4 py-2 backdrop-blur-md bg-gray-800/35 hover:bg-gray-500/40 border border-white/30 rounded-2xl text-white transition"
-            >
-              ←
-            </button>
-
-            {/* Desktop: Show Title */}
-            <h1 className="text-2xl font-bold text-white block">
-              {sponsor.name}
-            </h1>
-          </div>
-
           {/* Mobile: Hamburger Menu */}
           <div className="md:hidden flex gap-2 mx-4">
             {/* <button
@@ -269,7 +255,20 @@ const SponsorBooth = ({ onBack }) => {
       )} */}
 
           {/* Left Sidebar Buttons (Desktop Only) */}
-          <div className="fixed left-4 top-20 flex-col z-20 flex">
+          <div className="absolute h-fit w-full top-0 overflow-auto flex-col z-20 p-4 flex">
+            <div className="z-10 flex md:justify-between items-center gap-3 mb-3 w-full">
+              <button
+                onClick={onBack}
+                className="px-4 py-2 bg-gray-800/35 hover:bg-gray-500/40 border border-white/30 rounded-2xl text-white transition"
+              >
+                ←
+              </button>
+
+              {/* Desktop: Show Title */}
+              <h1 className="text-2xl font-bold text-white block">
+                {sponsor.name}
+              </h1>
+            </div>
             {/* Logo Panel */}
             <LogoPanel logo={sponsor.logo} />
 
