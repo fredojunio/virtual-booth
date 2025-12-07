@@ -98,13 +98,13 @@ const LandingPage = ({ onSponsorClick }) => {
         style={{ scrollBehavior: "smooth" }}
       >
         {/* Inner container that's wider than viewport */}
-        <div className="relative min-w-max h-full">
+        <div className="relative min-w-max md:w-full h-full">
           <img
             ref={imageRef}
             src={toiletBg}
             alt="background"
             onLoad={updateSize}
-            className="h-full object-cover pointer-events-none select-none landing-container"
+            className="md:w-full h-full object-cover pointer-events-none select-none landing-container"
           />
 
           {/* Left Sidebar Buttons (Desktop Only) */}

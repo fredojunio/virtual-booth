@@ -98,7 +98,7 @@ const SponsorBooth = ({ onBack }) => {
     <div className="relative h-screen overflow-hidden bg-black">
       {/* Scroll Wrapper - allows horizontal scrolling */}
       <div
-        className="scroll-wrapper h-full w-full overflow-x-auto overflow-y-hidden scroll-smooth"
+        className="scroll-wrapper h-full w-full overflow-x-auto overflow-y-auto scroll-smooth"
         style={{ scrollBehavior: "smooth" }}
       >
         {/* Inner container that's wider than viewport */}
@@ -107,11 +107,11 @@ const SponsorBooth = ({ onBack }) => {
           <img
             src={sponsor.imageUrl}
             alt="background"
-            className="h-screen w-full object-cover pointer-events-none select-none landing-container"
+            className="fixed h-screen w-full object-cover pointer-events-none select-none landing-container"
           />
 
           {/* Overlay for readability */}
-          <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+          <div className="fixed inset-0 bg-black bg-opacity-30"></div>
           {/* Video Modal */}
           {showVideoModal && (
             <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">

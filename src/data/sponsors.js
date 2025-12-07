@@ -73,7 +73,7 @@ export const SPONSORS = [
   },
   {
     id: "infinergy",
-    name: "Sponsor Silver 1",
+    name: "Infinergy Systems",
     tier: "silver",
     logo: infinergyLogo,
     imageUrl: infinergyBackground,
