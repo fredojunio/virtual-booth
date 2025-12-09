@@ -2,8 +2,10 @@ import React from "react";
 import toiletBg from "../assets/background.png";
 import { SPONSORS } from "../data/sponsors";
 import { Icon } from "@iconify/react";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = ({ onSponsorClick }) => {
+  const navigate = useNavigate();
   const [containerSize, setContainerSize] = React.useState({
     width: 0,
     height: 0,
@@ -132,13 +134,13 @@ const LandingPage = ({ onSponsorClick }) => {
                       : "grid-rows-[0fr] opacity-0 pointer-events-none select-none"
                   }`}
             >
-              <a
-                href="https://www.toilet.org.sg/loowards"
+              <button
+                onClick={() => navigate(`/about`)}
                 className="w-72 text-left px-4 py-3  
                     backdrop-blur-md bg-gray-800/15 border border-white/30 rounded-2xl hover:bg-gray-400/20 text-white transition-all duration-300 hover:scale-105"
               >
                 What is the Loo Awards?
-              </a>
+              </button>
               <a
                 href="https://www.toilet.org.sg/about"
                 className="w-72 w-scr text-left px-4 py-3 
@@ -156,7 +158,8 @@ const LandingPage = ({ onSponsorClick }) => {
             </div>
           </div>
           <h1 className="fixed top-10 left-1/2 transform -translate-x-1/2 text-white font-extrabold backdrop-blur-xl rounded-2xl p-5 text-center text-md md:text-4xl mb-3">
-            World Toilet Day <br /> Loo Awards 2025
+            {/* World Toilet Day <br /> Loo Awards 2025 */}
+            LOO AWARDS 2025
           </h1>
 
           {/* Sponsor Hotspots */}

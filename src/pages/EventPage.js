@@ -228,7 +228,7 @@ export default function EventLanding() {
             </div>
           </div>
           <div className="border-t border-white/20 pt-8 text-center text-white/60 text-sm">
-            <p>&copy; 2024 RAS Event. All rights reserved.</p>
+            <p>&copy; 2025 RAS Event. All rights reserved.</p>
           </div>
         </div>
       </footer>

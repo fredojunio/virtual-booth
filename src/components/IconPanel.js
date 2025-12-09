@@ -4,9 +4,11 @@ const IconPanel = ({ icons, onIconClick, activeIcon, content }) => {
   const isPanelOpen = activeIcon !== null;
   const activeIconData = icons.find((icon) => icon.id === activeIcon);
 
+  if (icons.length === 0) return null;
+
   return (
     <div className="absolute right-4 top-20 z-20 items-end hidden md:flex md:flex-col">
-      <div className="mb-3 flex text-2xl max-w-min gap-x-2 text-left px-4 py-3 transition bg-neutral-800/30 backdrop-blur-lg rounded-2xl">
+      <div className="mb-3 flex text-2xl max-w-min gap-x-2 text-left px-4 py-3 transition backdrop-blur-lg bg-gray-800/35  border border-white/30 rounded-2xl">
         {icons.map((icon) => (
           <button
             key={icon.id}
@@ -31,7 +33,7 @@ const IconPanel = ({ icons, onIconClick, activeIcon, content }) => {
                   }`}
       >
         <div className="overflow-hidden">
-          <div className="overflow-hidden transition-all duration-300 ease-in-out bg-neutral-800/30 text-white bg-opacity-90 backdrop-blur-xl rounded-2xl p-6 max-w-lg w-full shadow-xl">
+          <div className="overflow-hidden transition-all duration-300 ease-in-out  text-white bg-gray-800/35 hover:bg-gray-500/40 border border-white/30 bg-opacity-90 rounded-2xl p-6 max-w-lg w-full shadow-xl">
             <img
               src={activeIconData?.imageUrl}
               alt="Smart Toilet Diagram"

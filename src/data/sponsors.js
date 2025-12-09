@@ -69,7 +69,7 @@ export const SPONSORS = [
       // },
     ],
     x: 950,
-    y: 250,
+    y: 330,
   },
   {
     id: "infinergy",
@@ -101,7 +101,7 @@ export const SPONSORS = [
       },
     ],
     x: 600,
-    y: 400,
+    y: 450,
   },
   {
     id: "adsec-system",
@@ -116,7 +116,7 @@ export const SPONSORS = [
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQs",
     points: [],
     x: 1300,
-    y: 480,
+    y: 530,
   },
   {
     id: "alai",
@@ -134,7 +134,7 @@ export const SPONSORS = [
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQs",
     points: [],
     x: 400,
-    y: 640,
+    y: 690,
   },
   {
     id: "yy",
@@ -153,7 +153,7 @@ export const SPONSORS = [
     videoUrl: "",
     points: [],
     x: 950,
-    y: 700,
+    y: 750,
   },
   {
     id: "resustainability",
@@ -169,6 +169,6 @@ export const SPONSORS = [
     videoUrl: "",
     points: [],
     x: 1480,
-    y: 660,
+    y: 710,
   },
 ];

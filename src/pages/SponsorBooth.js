@@ -265,7 +265,7 @@ const SponsorBooth = ({ onBack }) => {
               </button>
 
               {/* Desktop: Show Title */}
-              <h1 className="text-2xl font-bold text-white block">
+              <h1 className="text-lg md:text-2xl p-2 md:p-3 font-bold text-white block bg-gray-800/35 border border-white/30 rounded-2xl transition-all duration-300">
                 {sponsor.name}
               </h1>
             </div>
