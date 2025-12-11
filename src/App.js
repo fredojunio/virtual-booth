@@ -23,10 +23,7 @@ function App() {
   return (
     <div className="min-h-screen">
       <Routes>
-        <Route
-          path="/"
-          element={<LandingPage onSponsorClick={handleSponsorClick} />}
-        />
+        <Route path="/" element={<EventPage />} />
         <Route
           path="/sponsors"
           element={<LandingPage onSponsorClick={handleSponsorClick} />}

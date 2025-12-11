@@ -23,8 +23,19 @@ import detail1 from "../assets/sponsors/xyresic/details/detail1.png";
 
 export const TIER_FEATURES = {
   bronze: ["who"],
-  silver: ["who", "contact", "video", "icon"],
-  gold: ["who", "contact", "video", "icon", "additional"],
+  silver: [
+    "who",
+    "contact",
+    // "video",
+    "icon",
+  ],
+  gold: [
+    "who",
+    "contact",
+    // "video",
+    "icon",
+    "additional",
+  ],
 };
 
 // Define sponsor positions in original image pixels

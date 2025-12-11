@@ -9,10 +9,8 @@ export default function EventLanding() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const menuItems = [
-    { icon: Calendar, label: "Event Details", id: "event" },
-    { icon: Users, label: "Speakers & Panelists", id: "speakers" },
+    // { icon: Calendar, label: "Event Details", id: "event" },
     { icon: Zap, label: "Sponsors & Products", id: "sponsors" },
-    { icon: Heart, label: "Engagement Groups", id: "engagement" },
     { icon: Info, label: "About", id: "about" },
   ];
 
@@ -137,13 +135,13 @@ export default function EventLanding() {
           <div className="hidden lg:block relative h-96">
             <div className="absolute inset-0 space-y-4">
               {[
-                { title: "Event Details", delay: 0 },
-                { title: "Speakers & Panelists", delay: 20 },
-                { title: "Sponsors & Products", delay: 40 },
+                { title: "Sponsors & Products", path: "sponsors", delay: 40 },
+                { title: "About", path: "about", delay: 40 },
               ].map((card, i) => (
-                <div
+                <button
+                  onClick={() => navigate(`/${card.path}`)}
                   key={i}
-                  className="backdrop-blur-xl bg-white/20 border border-white/40 rounded-2xl p-6 hover:bg-white/30 transition-all duration-500 hover:scale-105 cursor-pointer"
+                  className="w-full text-left backdrop-blur-xl bg-white/20 border border-white/40 rounded-2xl p-6 hover:bg-white/30 transition-all duration-500 hover:scale-105 cursor-pointer"
                   style={{
                     transform: `rotate(${i * 3}deg) translateY(${i * 20}px)`,
                   }}
@@ -152,7 +150,7 @@ export default function EventLanding() {
                   <p className="text-white/70 text-sm mt-2">
                     Discover more about our event
                   </p>
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -208,7 +206,7 @@ export default function EventLanding() {
                     Contact Us
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a href="#" className="hover:text-white transition">
                     Become a Volunteer
                   </a>
@@ -217,7 +215,7 @@ export default function EventLanding() {
                   <a href="#" className="hover:text-white transition">
                     Sponsorship
                   </a>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div>

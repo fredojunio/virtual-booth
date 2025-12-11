@@ -112,6 +112,13 @@ const LandingPage = ({ onSponsorClick }) => {
           {/* Left Sidebar Buttons (Desktop Only) */}
           <div className="fixed left-4 top-10 flex flex-col gap-3 z-10">
             <button
+              onClick={() => navigate(-1)}
+              className="max-w-min px-4 py-2 bg-gray-800/35 hover:bg-gray-500/40 border border-white/30 rounded-2xl text-white transition"
+            >
+              ←
+            </button>
+
+            <button
               onClick={() => setIsExpanded(!isExpanded)}
               className={`text-left px-4 py-3 rounded-2xl transition max-w-max ${
                 isExpanded
@@ -157,7 +164,7 @@ const LandingPage = ({ onSponsorClick }) => {
               </a>
             </div>
           </div>
-          <h1 className="fixed top-10 left-1/2 transform -translate-x-1/2 text-white font-extrabold backdrop-blur-xl rounded-2xl p-5 text-center text-md md:text-4xl mb-3">
+          <h1 className="fixed top-10 left-1/2 transform -translate-x-1/2 text-gray-800 font-extrabold backdrop-blur-xl rounded-2xl p-5 text-center text-md md:text-4xl mb-3">
             {/* World Toilet Day <br /> Loo Awards 2025 */}
             LOO AWARDS 2025
           </h1>
