@@ -17,7 +17,7 @@ function App() {
 
   const handleBack = () => {
     setSelectedSponsor(null);
-    navigate("/");
+    navigate(-1);
   };
 
   return (
